@@ -57,9 +57,15 @@
     .coin-icon::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid rgba(240,185,11,0.3); animation: coinPulse 3s ease-in-out infinite; }
     @keyframes coinGlow { 0%,100% { box-shadow: 0 0 30px rgba(240,185,11,0.3); } 50% { box-shadow: 0 0 50px rgba(240,185,11,0.5); } }
     @keyframes coinPulse { 0%,100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.15); opacity: 0.6; } }
+    
     .header-text { cursor: default; user-select: none; flex: 1; }
     .header-text h1 { font-size: 22px; font-weight: 700; background: linear-gradient(90deg, var(--fg), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .header-text p { color: var(--muted); font-size: 12px; margin-top: 2px; }
+    
+    /* Live Clock Style */
+    .live-clock { color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
+    .clock-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 1s infinite; }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    
     .header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .status-badge { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; color: var(--muted); white-space: nowrap; }
     .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transition: all 0.3s; flex-shrink: 0; }
@@ -227,7 +233,8 @@
         <div class="coin-icon"><i class="fas fa-cubes"></i></div>
         <div class="header-text" id="headerText">
           <h1>Kalkulasi Pembelian DOGE</h1>
-          <p>Track harga rata-rata, total modal, dan profit/loss</p>
+          <!-- Jam Hidup (Live Clock) -->
+          <div class="live-clock"><span class="clock-dot"></span> <span id="liveClock">Memuat waktu...</span></div>
         </div>
         <div class="header-actions">
           <div class="status-badge">
@@ -280,7 +287,7 @@
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>No</th><th>Coin</th><th>Tanggal</th><th>Harga Satuan</th><th>Total Belanja</th><th>Jumlah Koin</th><th>Status P/L</th><th>Aksi</th></tr></thead>
+            <thead><tr><th>No</th><th>Coin</th><th>Tanggal & Waktu</th><th>Harga Satuan</th><th>Total Belanja</th><th>Jumlah Koin</th><th>P/L</th><th>Aksi</th></tr></thead>
             <tbody id="tBody"><tr><td colspan="8"><div class="empty-state"><i class="fas fa-inbox"></i><p>Belum ada transaksi.</p></div></td></tr></tbody>
           </table>
         </div>
@@ -314,7 +321,7 @@
     $('loginForm').addEventListener('submit', (e) => { e.preventDefault(); if ($('loginUser').value === VALID_USER && $('loginPass').value === VALID_PASS) { localStorage.setItem('doge_auth', 'true'); $('loginError').style.display = 'none'; checkAuth(); } else { $('loginError').style.display = 'block'; $('loginPass').value = ''; } });
     $('btnLogout').addEventListener('click', () => { localStorage.removeItem('doge_auth'); $('loginUser').value = ''; $('loginPass').value = ''; checkAuth(); });
 
-    const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbwgGyUDZqP0KGgEuFIDVwblUmHxWgjNA_J3m3F3-XMigTl-t3mr0VUKsbd0CP2PEChY/exec';
+    const DEFAULT_API_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_DEPLOY_ANDA/exec';
     let API_URL = localStorage.getItem('gs_api_url') || DEFAULT_API_URL;
     let transactions = [], lockedRows = JSON.parse(localStorage.getItem('doge_locks') || '[]');
 
@@ -327,12 +334,13 @@
     const modalOverlay = $('modalOverlay'), modalClose = $('modalClose'), btnOpenModal = $('btnOpenModal');
     function isFormDirty() { return $('inPrice').value || $('inTotal').value; }
     
-    // Fungsi mendapatkan tanggal lokal komputer saat ini
+    // Fungsi mendapatkan waktu lokal lengkap (Tgl & Jam)
+    function getLocalDateTime() { const d = new Date(); const yr = d.getFullYear(); const mo = String(d.getMonth() + 1).padStart(2, '0'); const dy = String(d.getDate()).padStart(2, '0'); const hr = String(d.getHours()).padStart(2, '0'); const mn = String(d.getMinutes()).padStart(2, '0'); return yr + '-' + mo + '-' + dy + ' ' + hr + ':' + mn; }
     function getTodayLocal() { return new Date().toISOString().slice(0, 10); }
     
     function openModal() { 
       modalOverlay.classList.add('active'); 
-      $('inDate').value = getTodayLocal(); // Selalu set ke tanggal hari ini saat buka form
+      $('inDate').value = getTodayLocal(); 
     }
     function closeModal(force = false) { if (!force && isFormDirty()) { toast('Data form belum disimpan!', 'warning'); modalClose.dataset.confirmClose = 'true'; return; } modalOverlay.classList.remove('active'); $('inPrice').value = ''; $('inTotal').value = ''; modalClose.dataset.confirmClose = 'false'; }
     btnOpenModal.addEventListener('click', openModal);
@@ -348,6 +356,8 @@
 
     async function checkConn() { const dot = $('statusDot'); const txt = $('statusText'); dot.className = 'status-dot'; txt.textContent = 'Memeriksa...'; try { const r = await fetch(API_URL + '?action=ping', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { dot.className = 'status-dot ok'; txt.textContent = 'Terhubung'; return true; } throw new Error(); } catch (e) { dot.className = 'status-dot'; txt.textContent = 'Offline'; return false; } }
     async function fetchData() { try { const r = await fetch(API_URL + '?action=read', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { transactions = j.data || []; render(); calc(); return; } } catch (e) {} transactions = JSON.parse(localStorage.getItem('doge_tx') || '[]'); render(); calc(); }
+    
+    // Saat menambah transaksi, kirim Tanggal & Jam ke Google Sheet
     async function addTx(tx) { const p = new URLSearchParams({ action: 'add', coin: tx.coin, tanggal: tx.tanggal, harga: tx.harga, total: tx.total }); try { const r = await fetch(API_URL + '?' + p.toString(), { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { toast('Transaksi berhasil disimpan', 'success'); await fetchData(); return true; } throw new Error(); } catch (e) { tx.id = 'TX-' + Date.now().toString(36).toUpperCase(); tx.timestamp = new Date().toISOString(); tx.jumlah = tx.harga > 0 ? tx.total / tx.harga : 0; transactions.push(tx); localStorage.setItem('doge_tx', JSON.stringify(transactions)); toast('Disimpan lokal', 'error'); render(); calc(); return true; } }
     async function delTx(id) { if (lockedRows.includes(id)) { toast('Transaksi terkunci!', 'warning'); return; } try { const p = new URLSearchParams({ action: 'delete', id: id }); const r = await fetch(API_URL + '?' + p.toString(), { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { toast('Transaksi dihapus', 'success'); await fetchData(); return; } } catch (e) {} transactions = transactions.filter(t => t.id !== id); localStorage.setItem('doge_tx', JSON.stringify(transactions)); toast('Dihapus lokal', 'info'); render(); calc(); }
 
@@ -357,7 +367,21 @@
 
     function calc() { let tKoin = 0, tModal = 0; transactions.forEach(t => { tKoin += Number(t.jumlah) || 0; tModal += Number(t.total) || 0; }); const avg = tKoin > 0 ? tModal / tKoin : 0; const cur = parseFloat($('curPrice').value) || 0; const curVal = tKoin * cur; const pnl = curVal - tModal; const pnlPct = tModal > 0 ? (pnl / tModal) * 100 : 0; $('sKoin').textContent = fKoin(tKoin); $('sModal').textContent = fRp(tModal); $('sAvg').textContent = fRp(avg); const pnlEl = $('sPnl'); const pctEl = $('sPnlPct'); pnlEl.innerHTML = fRp(pnl) + ' ' + getTrendIcon(avg, cur); pnlEl.className = 'card-value ' + (pnl >= 0 ? 't-g' : 't-r'); pctEl.innerHTML = (pnl >= 0 ? '+' : '') + pnlPct.toFixed(2) + '% ' + getTrendIcon(avg, cur); pctEl.style.color = pnl >= 0 ? 'var(--green)' : 'var(--accent)'; if (cur > 0 && tKoin > 0) { $('pnlBar').style.display = 'block'; $('pnCur').innerHTML = fRp(curVal); $('pnCost').innerHTML = fRp(tModal); $('pnAmt').innerHTML = fRp(pnl) + ' ' + getTrendIcon(avg, cur); $('pnAmt').className = 'pnl-val ' + (pnl >= 0 ? 't-g' : 't-r'); $('pnPct').innerHTML = (pnl >= 0 ? '+' : '') + pnlPct.toFixed(2) + '% ' + getTrendIcon(avg, cur); $('pnPct').style.color = pnl >= 0 ? 'var(--green)' : 'var(--accent)'; const prog = Math.max(0, Math.min(100, 50 + pnlPct / 2)); const fill = $('pnFill'); fill.style.width = prog + '%'; fill.style.background = pnl >= 0 ? 'linear-gradient(90deg,var(--green),var(--green2))' : 'linear-gradient(90deg,var(--accent),#ff6b81)'; } else { $('pnlBar').style.display = 'none'; } render(); }
 
-    $('btnAdd').addEventListener('click', async () => { const coin = $('inCoin').value; const tanggal = $('inDate').value; const harga = parseFloat($('inPrice').value); const total = parseFloat($('inTotal').value); if (!tanggal) { toast('Tanggal harus diisi', 'error'); return; } if (!harga || harga <= 0) { toast('Harga harus > 0', 'error'); return; } if (!total || total <= 0) { toast('Total harus > 0', 'error'); return; } const btn = $('btnAdd'); btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...'; const ok = await addTx({ coin, tanggal, harga, total }); if (ok) { closeModal(true); } btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Simpan Transaksi'; });
+    $('btnAdd').addEventListener('click', async () => { 
+      const coin = $('inCoin').value; 
+      const tanggalInput = $('inDate').value; 
+      // Gabung tanggal form dengan Jam komputer saat ini
+      const tanggalFinal = tanggalInput + ' ' + new Date().toTimeString().slice(0, 5); 
+      const harga = parseFloat($('inPrice').value); 
+      const total = parseFloat($('inTotal').value); 
+      if (!tanggalInput) { toast('Tanggal harus diisi', 'error'); return; } 
+      if (!harga || harga <= 0) { toast('Harga harus > 0', 'error'); return; } 
+      if (!total || total <= 0) { toast('Total harus > 0', 'error'); return; } 
+      const btn = $('btnAdd'); btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...'; 
+      const ok = await addTx({ coin, tanggal: tanggalFinal, harga, total }); 
+      if (ok) { closeModal(true); } 
+      btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Simpan Transaksi'; 
+    });
 
     function handleDel(id) { if (!id) return; const btn = event.target.closest('.btn-del'); if (btn) { btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; btn.disabled = true; } delTx(id); }
     $('curPrice').addEventListener('input', calc);
@@ -369,7 +393,22 @@
 
     function initParticles() { const c = $('particles'); const colors = ['rgba(233,69,96,0.3)', 'rgba(240,185,11,0.25)', 'rgba(0,214,143,0.2)']; for (let i = 0; i < 18; i++) { const p = document.createElement('div'); p.className = 'particle'; const sz = 2 + Math.random() * 4; p.style.width = sz + 'px'; p.style.height = sz + 'px'; p.style.left = Math.random() * 100 + '%'; p.style.bottom = '-10px'; p.style.background = colors[Math.floor(Math.random() * colors.length)]; p.style.animationDuration = (10 + Math.random() * 18) + 's'; p.style.animationDelay = Math.random() * 12 + 's'; c.appendChild(p); } }
 
-    async function initApp() { initParticles(); await checkConn(); await fetchData(); }
+    // Update Jam Hidup (Live Clock)
+    function updateClock() {
+      const now = new Date();
+      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+      const dayName = days[now.getDay()];
+      const d = now.getDate();
+      const m = months[now.getMonth()];
+      const y = now.getFullYear();
+      const time = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      
+      if($('liveClock')) $('liveClock').textContent = dayName + ', ' + d + ' ' + m + ' ' + y + ' | ' + time;
+    }
+    setInterval(updateClock, 1000);
+
+    async function initApp() { initParticles(); updateClock(); await checkConn(); await fetchData(); }
     checkAuth();
   </script>
 </body>
