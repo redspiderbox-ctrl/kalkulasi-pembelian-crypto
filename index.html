@@ -35,71 +35,39 @@
 
     .container { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 20px 16px 60px; }
 
-    /* ====== HALAMAN LOGIN ====== */
-    #loginScreen {
-      position: fixed; inset: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--bg); transition: opacity 0.4s, visibility 0.4s;
-    }
+    #loginScreen { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; background: var(--bg); transition: opacity 0.4s, visibility 0.4s; }
     #loginScreen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    
-    .login-box {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 24px; padding: 40px; width: 90%; max-width: 400px;
-      box-shadow: 0 20px 50px var(--shadow); text-align: center;
-    }
-    .login-icon {
-      width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #d4a017);
-      display: flex; align-items: center; justify-content: center; font-size: 28px; color: #111;
-      margin: 0 auto 20px; box-shadow: 0 0 30px rgba(240,185,11,0.3);
-    }
+    .login-box { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 40px; width: 90%; max-width: 400px; box-shadow: 0 20px 50px var(--shadow); text-align: center; }
+    .login-icon { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #d4a017); display: flex; align-items: center; justify-content: center; font-size: 28px; color: #111; margin: 0 auto 20px; box-shadow: 0 0 30px rgba(240,185,11,0.3); }
     .login-box h2 { font-size: 22px; margin-bottom: 8px; }
-    .login-box p { color: var(--muted); font-size: 13px; margin-bottom: 6px; }
-    /* Tanggal Realtime di Login */
-    .login-date { color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 25px; display: block; letter-spacing: 0.5px; }
-    
+    .login-box p { color: var(--muted); font-size: 13px; margin-bottom: 30px; }
     .login-field { position: relative; margin-bottom: 20px; text-align: left; }
     .login-field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-    .login-field input {
-      width: 100%; padding: 14px 14px 14px 44px; background: var(--input-bg);
-      border: 1px solid var(--border); border-radius: 12px; color: var(--fg);
-      font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .login-field input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(240,185,11,0.15); }
+    .login-field input { width: 100%; padding: 14px 14px 14px 44px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 12px; color: var(--fg); font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color 0.2s; }
+    .login-field input:focus { outline: none; border-color: var(--gold); }
     .login-field .input-icon { position: absolute; left: 14px; top: 38px; color: var(--muted); font-size: 14px; }
-    .login-btn {
-      width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold), #d4a017);
-      color: #111; border: none; border-radius: 12px; font-family: 'Space Grotesk', sans-serif;
-      font-size: 15px; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
-      display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px;
-    }
+    .login-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold), #d4a017); color: #111; border: none; border-radius: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
     .login-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(240,185,11,0.3); }
     .login-error { color: var(--accent); font-size: 12px; margin-top: 12px; display: none; }
 
-    /* ====== APLIKASI UTAMA ====== */
     #appScreen { display: none; }
-
-    .header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding: 20px; border-bottom: 1px solid var(--border); background-color: var(--header-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 0 0 16px 16px; position: sticky; top: 0; z-index: 50; transition: background-color 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+    .header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding: 20px; border-bottom: 1px solid var(--border); background-color: var(--header-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 0 0 16px 16px; position: sticky; top: 0; z-index: 50; transition: background-color 0.4s ease, box-shadow 0.3s ease; }
     .header.is-scrolled { box-shadow: 0 4px 20px var(--shadow); border-bottom-color: transparent; }
-    
     .coin-icon { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #d4a017); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #111; box-shadow: 0 0 30px rgba(240,185,11,0.3); animation: coinGlow 3s ease-in-out infinite; position: relative; flex-shrink: 0; }
     .coin-icon::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid rgba(240,185,11,0.3); animation: coinPulse 3s ease-in-out infinite; }
     @keyframes coinGlow { 0%,100% { box-shadow: 0 0 30px rgba(240,185,11,0.3); } 50% { box-shadow: 0 0 50px rgba(240,185,11,0.5); } }
     @keyframes coinPulse { 0%,100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.15); opacity: 0.6; } }
-    
     .header-text { cursor: default; user-select: none; flex: 1; }
     .header-text h1 { font-size: 22px; font-weight: 700; background: linear-gradient(90deg, var(--fg), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .header-text p { color: var(--muted); font-size: 12px; margin-top: 2px; }
-    
     .header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .status-badge { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; color: var(--muted); white-space: nowrap; }
     .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transition: all 0.3s; flex-shrink: 0; }
     .status-dot.ok { background: var(--green); box-shadow: 0 0 8px rgba(0,214,143,0.5); }
     .theme-toggle { background: var(--card); border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fg); font-size: 14px; transition: all 0.3s; }
     .theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
-    
     .btn-logout { background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; color: var(--muted); font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
-    .btn-logout:hover { border-color: var(--accent); color: var(--accent); background: rgba(233,69,96,0.05); }
+    .btn-logout:hover { border-color: var(--accent); color: var(--accent); }
 
     .modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); display: flex; align-items: flex-start; justify-content: center; padding-top: 60px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; overflow-y: auto; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
@@ -109,7 +77,7 @@
     .modal-header h2 { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
     .modal-header h2 i { color: var(--accent); }
     .modal-close { background: var(--bg2); border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--muted); font-size: 14px; transition: all 0.2s; }
-    .modal-close:hover { color: var(--accent); border-color: var(--accent); background: rgba(233,69,96,0.1); }
+    .modal-close:hover { color: var(--accent); border-color: var(--accent); }
 
     .config-bar { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 24px; display: none; }
     .config-bar.show { display: block; animation: slideDown 0.3s ease; }
@@ -124,12 +92,12 @@
 
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
     .form-group label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-    .form-group input, .form-group select { width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 10px; color: var(--fg); font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color 0.2s, box-shadow 0.2s, background 0.3s; }
+    .form-group input, .form-group select { width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 10px; color: var(--fg); font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color 0.2s; }
     .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(233,69,96,0.15); }
     .form-group select option { background: var(--card); color: var(--fg); }
-    .btn-submit-form { margin-top: 20px; width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent), #c23152); color: #fff; border: none; border-radius: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.15s, box-shadow 0.15s; }
+    .btn-submit-form { margin-top: 20px; width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent), #c23152); color: #fff; border: none; border-radius: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.15s; }
     .btn-submit-form:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(233,69,96,0.3); }
-    .btn-submit-form:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-submit-form:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
     .add-tx-section { margin-bottom: 16px; }
     .btn-add-inline { width: 100%; padding: 16px; background: var(--card); border: 1px dashed var(--border); border-radius: 14px; color: var(--muted); font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
@@ -230,15 +198,11 @@
   <div class="particles" id="particles"></div>
   <div class="toast-box" id="toastBox"></div>
 
-  <!-- ====== HALAMAN LOGIN ====== -->
   <div id="loginScreen">
     <div class="login-box">
       <div class="login-icon"><i class="fas fa-cubes"></i></div>
       <h2>Selamat Datang</h2>
       <p>Masuk ke sistem Kalkulasi Pembelian DOGE</p>
-      <!-- Tanggal Realtime -->
-      <span class="login-date" id="loginDate"></span>
-      
       <form id="loginForm" autocomplete="off" novalidate>
         <div class="login-field">
           <label>Username</label>
@@ -255,8 +219,8 @@
       </form>
     </div>
   </div>
+  <style>.secure-input { -webkit-text-security: disc; }</style>
 
-  <!-- ====== APLIKASI UTAMA ====== -->
   <div id="appScreen">
     <div class="container">
       <header class="header" id="mainHeader">
@@ -270,12 +234,8 @@
             <span class="status-dot" id="statusDot"></span>
             <span id="statusText">Memeriksa...</span>
           </div>
-          <button class="theme-toggle" id="themeToggle" aria-label="Ganti Tema">
-            <i class="fas fa-moon" id="themeIcon"></i>
-          </button>
-          <button class="btn-logout" id="btnLogout">
-            <i class="fas fa-sign-out-alt"></i> Log Out
-          </button>
+          <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+          <button class="btn-logout" id="btnLogout"><i class="fas fa-sign-out-alt"></i> Log Out</button>
         </div>
       </header>
 
@@ -325,11 +285,9 @@
           </table>
         </div>
       </section>
-
       <footer class="footer">Data tersimpan di <a href="https://docs.google.com/spreadsheets/d/1Sb0ao6UtW-pk_NzbADRyyOgGBImhJYfHdoMCpYffHuI/edit" target="_blank">Google Sheet</a></footer>
     </div>
 
-    <!-- Modal Form -->
     <div class="modal-overlay" id="modalOverlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -338,7 +296,6 @@
         </div>
         <div class="form-grid">
           <div class="form-group"><label for="inCoin">Coin</label><select id="inCoin"><option value="DOGE" selected>DOGE</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="SOL">SOL</option><option value="XRP">XRP</option><option value="ADA">ADA</option></select></div>
-          <!-- Input Date akan diisi otomatis oleh JS -->
           <div class="form-group"><label for="inDate">Tanggal Beli</label><input type="date" id="inDate" /></div>
           <div class="form-group"><label for="inPrice">Harga Satuan (Rp)</label><input type="number" id="inPrice" placeholder="0" min="0" step="any" /></div>
           <div class="form-group"><label for="inTotal">Total Belanja (Rp)</label><input type="number" id="inTotal" placeholder="0" min="0" step="any" /></div>
@@ -348,87 +305,36 @@
     </div>
   </div>
 
-  <style>.secure-input { -webkit-text-security: disc; -moz-text-security: disc; text-security: disc; }</style>
-
   <script>
-    // ====== FUNGSI TANGGAL REALTIME ======
-    function getTodayID() {
-      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      const d = new Date();
-      return days[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
-    }
-    function getTodayISO() {
-      const d = new Date();
-      return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-    }
-
-    // Isi teks tanggal di halaman login
-    document.getElementById('loginDate').textContent = getTodayID();
-
-    // ====== KONFIGURASI LOGIN ======
-    const VALID_USER = 'admin';
-    const VALID_PASS = 'admin123';
-
+    const VALID_USER = 'admin', VALID_PASS = 'admin123';
     const $ = id => document.getElementById(id);
-    const loginScreen = $('loginScreen');
-    const appScreen = $('appScreen');
+    const loginScreen = $('loginScreen'), appScreen = $('appScreen');
     
-    function checkAuth() {
-      const isLogged = localStorage.getItem('doge_auth') === 'true';
-      if (isLogged) {
-        loginScreen.classList.add('hidden');
-        appScreen.style.display = 'block';
-        initApp();
-      } else {
-        loginScreen.classList.remove('hidden');
-        appScreen.style.display = 'none';
-      }
-    }
+    function checkAuth() { const isLogged = localStorage.getItem('doge_auth') === 'true'; if (isLogged) { loginScreen.classList.add('hidden'); appScreen.style.display = 'block'; initApp(); } else { loginScreen.classList.remove('hidden'); appScreen.style.display = 'none'; } }
+    $('loginForm').addEventListener('submit', (e) => { e.preventDefault(); if ($('loginUser').value === VALID_USER && $('loginPass').value === VALID_PASS) { localStorage.setItem('doge_auth', 'true'); $('loginError').style.display = 'none'; checkAuth(); } else { $('loginError').style.display = 'block'; $('loginPass').value = ''; } });
+    $('btnLogout').addEventListener('click', () => { localStorage.removeItem('doge_auth'); $('loginUser').value = ''; $('loginPass').value = ''; checkAuth(); });
 
-    $('loginForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const user = $('loginUser').value;
-      const pass = $('loginPass').value;
-      if (user === VALID_USER && pass === VALID_PASS) {
-        localStorage.setItem('doge_auth', 'true');
-        $('loginError').style.display = 'none';
-        checkAuth();
-      } else {
-        $('loginError').style.display = 'block';
-        $('loginPass').value = '';
-      }
-    });
-
-    $('btnLogout').addEventListener('click', () => {
-      localStorage.removeItem('doge_auth');
-      $('loginUser').value = '';
-      $('loginPass').value = '';
-      checkAuth();
-    });
-
-    // ====== APLIKASI UTAMA ======
-    const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbyp6BL-_32htd0zbNRIkSKutnNR2xw5e5W7VoEPPk8TcBB0O_r91XFtLUbH9ksrsNFN/exec';
+    const DEFAULT_API_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_DEPLOY_ANDA/exec';
     let API_URL = localStorage.getItem('gs_api_url') || DEFAULT_API_URL;
-    let transactions = [];
-    let lockedRows = JSON.parse(localStorage.getItem('doge_locks') || '[]');
+    let transactions = [], lockedRows = JSON.parse(localStorage.getItem('doge_locks') || '[]');
 
-    const themeToggle = $('themeToggle'); const themeIcon = $('themeIcon'); const htmlEl = document.documentElement;
+    const themeToggle = $('themeToggle'), themeIcon = $('themeIcon'), htmlEl = document.documentElement;
     function getPreferredTheme() { const saved = localStorage.getItem('theme'); if (saved) return saved; return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
     function applyTheme(theme) { if (theme === 'light') { htmlEl.setAttribute('data-theme', 'light'); themeIcon.className = 'fas fa-sun'; } else { htmlEl.removeAttribute('data-theme'); themeIcon.className = 'fas fa-moon'; } localStorage.setItem('theme', theme); }
     applyTheme(getPreferredTheme());
-    themeToggle.addEventListener('click', () => { const current = htmlEl.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; applyTheme(current === 'light' ? 'dark' : 'light'); });
+    themeToggle.addEventListener('click', () => { applyTheme(htmlEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light'); });
 
-    const modalOverlay = $('modalOverlay'); const modalClose = $('modalClose'); const btnOpenModal = $('btnOpenModal');
+    const modalOverlay = $('modalOverlay'), modalClose = $('modalClose'), btnOpenModal = $('btnOpenModal');
     function isFormDirty() { return $('inPrice').value || $('inTotal').value; }
+    
+    // Fungsi mendapatkan tanggal lokal komputer saat ini
+    function getTodayLocal() { return new Date().toISOString().slice(0, 10); }
+    
     function openModal() { 
       modalOverlay.classList.add('active'); 
-      $('inDate').value = getTodayISO(); // Otomatis set tanggal hari ini saat buka form
+      $('inDate').value = getTodayLocal(); // Selalu set ke tanggal hari ini saat buka form
     }
-    function closeModal(force = false) {
-      if (!force && isFormDirty()) { toast('Data form belum disimpan! Klik X lagi untuk membuang.', 'warning'); modalClose.dataset.confirmClose = 'true'; return; }
-      modalOverlay.classList.remove('active'); $('inPrice').value = ''; $('inTotal').value = ''; modalClose.dataset.confirmClose = 'false';
-    }
+    function closeModal(force = false) { if (!force && isFormDirty()) { toast('Data form belum disimpan!', 'warning'); modalClose.dataset.confirmClose = 'true'; return; } modalOverlay.classList.remove('active'); $('inPrice').value = ''; $('inTotal').value = ''; modalClose.dataset.confirmClose = 'false'; }
     btnOpenModal.addEventListener('click', openModal);
     modalClose.addEventListener('click', () => { if (modalClose.dataset.confirmClose === 'true') closeModal(true); else closeModal(false); });
     modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(false); });
@@ -440,51 +346,18 @@
     function getTrendIcon(buyPrice, curPrice) { if (!curPrice || curPrice <= 0 || !buyPrice || buyPrice <= 0) return '<span class="trend-icon trend-flat"><i class="fas fa-minus"></i></span>'; if (curPrice > buyPrice) return '<span class="trend-icon trend-up"><i class="fas fa-caret-up"></i></span>'; else if (curPrice < buyPrice) return '<span class="trend-icon trend-down"><i class="fas fa-caret-down"></i></span>'; return '<span class="trend-icon trend-flat"><i class="fas fa-minus"></i></span>'; }
     function toast(msg, type = 'info') { const box = $('toastBox'); const el = document.createElement('div'); el.className = 'toast ' + type; const ic = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'; el.innerHTML = '<i class="fas ' + ic + '"></i> ' + msg; box.appendChild(el); setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(40px)'; el.style.transition = '0.3s'; setTimeout(() => el.remove(), 300); }, 3500); }
 
-    async function checkConn() { const dot = $('statusDot'); const txt = $('statusText'); dot.className = 'status-dot'; txt.textContent = 'Memeriksa...'; try { const r = await fetch(API_URL + '?action=ping', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { dot.className = 'status-dot ok'; txt.textContent = 'Terhubung'; return true; } throw new Error(j.message); } catch (e) { dot.className = 'status-dot'; txt.textContent = 'Offline'; return false; } }
-    async function fetchData() { try { const r = await fetch(API_URL + '?action=read', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { transactions = j.data || []; render(); calc(); return; } } catch (e) { console.warn('Fetch gagal:', e); } transactions = JSON.parse(localStorage.getItem('doge_tx') || '[]'); render(); calc(); }
-    async function addTx(tx) { const p = new URLSearchParams({ action: 'add', coin: tx.coin, tanggal: tx.tanggal, harga: tx.harga, total: tx.total }); try { const r = await fetch(API_URL + '?' + p.toString(), { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { toast('Transaksi berhasil disimpan', 'success'); await fetchData(); return true; } throw new Error(j.message); } catch (e) { console.warn('Simpan lokal:', e); tx.id = 'TX-' + Date.now().toString(36).toUpperCase(); tx.timestamp = new Date().toISOString(); tx.jumlah = tx.harga > 0 ? tx.total / tx.harga : 0; transactions.push(tx); saveLocal(); toast('Disimpan lokal', 'error'); render(); calc(); return true; } }
-    async function delTx(id) { if (lockedRows.includes(id)) { toast('Transaksi terkunci!', 'warning'); return; } try { const p = new URLSearchParams({ action: 'delete', id: id }); const r = await fetch(API_URL + '?' + p.toString(), { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { toast('Transaksi dihapus', 'success'); await fetchData(); return; } } catch (e) { console.warn('Hapus lokal:', e); } transactions = transactions.filter(t => t.id !== id); saveLocal(); toast('Dihapus lokal', 'info'); render(); calc(); }
-    function saveLocal() { localStorage.setItem('doge_tx', JSON.stringify(transactions)); }
+    async function checkConn() { const dot = $('statusDot'); const txt = $('statusText'); dot.className = 'status-dot'; txt.textContent = 'Memeriksa...'; try { const r = await fetch(API_URL + '?action=ping', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { dot.className = 'status-dot ok'; txt.textContent = 'Terhubung'; return true; } throw new Error(); } catch (e) { dot.className = 'status-dot'; txt.textContent = 'Offline'; return false; } }
+    async function fetchData() { try { const r = await fetch(API_URL + '?action=read', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { transactions = j.data || []; render(); calc(); return; } } catch (e) {} transactions = JSON.parse(localStorage.getItem('doge_tx') || '[]'); render(); calc(); }
+    async function addTx(tx) { const p = new URLSearchParams({ action: 'add', coin: tx.coin, tanggal: tx.tanggal, harga: tx.harga, total: tx.total }); try { const r = await fetch(API_URL + '?' + p.toString(), { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { toast('Transaksi berhasil disimpan', 'success'); await fetchData(); return true; } throw new Error(); } catch (e) { tx.id = 'TX-' + Date.now().toString(36).toUpperCase(); tx.timestamp = new Date().toISOString(); tx.jumlah = tx.harga > 0 ? tx.total / tx.harga : 0; transactions.push(tx); localStorage.setItem('doge_tx', JSON.stringify(transactions)); toast('Disimpan lokal', 'error'); render(); calc(); return true; } }
+    async function delTx(id) { if (lockedRows.includes(id)) { toast('Transaksi terkunci!', 'warning'); return; } try { const p = new URLSearchParams({ action: 'delete', id: id }); const r = await fetch(API_URL + '?' + p.toString(), { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { toast('Transaksi dihapus', 'success'); await fetchData(); return; } } catch (e) {} transactions = transactions.filter(t => t.id !== id); localStorage.setItem('doge_tx', JSON.stringify(transactions)); toast('Dihapus lokal', 'info'); render(); calc(); }
 
     function toggleLock(id) { if (lockedRows.includes(id)) { lockedRows = lockedRows.filter(i => i !== id); toast('Kunci dibuka', 'info'); } else { lockedRows.push(id); toast('Transaksi dikunci', 'success'); } localStorage.setItem('doge_locks', JSON.stringify(lockedRows)); render(); }
 
-    function render() {
-      const tbody = $('tBody'); const cur = parseFloat($('curPrice').value) || 0;
-      if (!transactions.length) { tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="fas fa-inbox"></i><p>Belum ada transaksi.</p></div></td></tr>'; $('tCnt').textContent = '0 transaksi'; return; }
-      tbody.innerHTML = transactions.map((t, i) => {
-        const isLocked = lockedRows.includes(t.id);
-        return '<tr><td style="color:var(--muted)">' + (i + 1) + '</td><td><span class="td-coin">' + (t.coin || 'DOGE') + '</span></td><td class="td-date">' + (t.tanggal || '-') + '</td><td>' + fRp(t.harga) + '</td><td class="td-total">' + fRp(t.total) + '</td><td class="td-jumlah">' + fKoin(t.jumlah) + '</td><td>' + getTrendIcon(Number(t.harga), cur) + '</td><td><div class="action-group"><button class="btn-action ' + (isLocked ? 'locked' : '') + '" onclick="toggleLock(\'' + t.id + '\')"><i class="fas ' + (isLocked ? 'fa-lock' : 'fa-lock-open') + '"></i></button><button class="btn-action btn-del" onclick="handleDel(\'' + t.id + '\')" ' + (isLocked ? 'disabled' : '') + '><i class="fas fa-trash-alt"></i></button></div></td></tr>';
-      }).join('');
-      $('tCnt').textContent = transactions.length + ' transaksi';
-    }
+    function render() { const tbody = $('tBody'); const cur = parseFloat($('curPrice').value) || 0; if (!transactions.length) { tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="fas fa-inbox"></i><p>Belum ada transaksi.</p></div></td></tr>'; $('tCnt').textContent = '0 transaksi'; return; } tbody.innerHTML = transactions.map((t, i) => { const isLocked = lockedRows.includes(t.id); return '<tr><td style="color:var(--muted)">' + (i + 1) + '</td><td><span class="td-coin">' + (t.coin || 'DOGE') + '</span></td><td class="td-date">' + (t.tanggal || '-') + '</td><td>' + fRp(t.harga) + '</td><td class="td-total">' + fRp(t.total) + '</td><td class="td-jumlah">' + fKoin(t.jumlah) + '</td><td>' + getTrendIcon(Number(t.harga), cur) + '</td><td><div class="action-group"><button class="btn-action ' + (isLocked ? 'locked' : '') + '" onclick="toggleLock(\'' + t.id + '\')"><i class="fas ' + (isLocked ? 'fa-lock' : 'fa-lock-open') + '"></i></button><button class="btn-action btn-del" onclick="handleDel(\'' + t.id + '\')" ' + (isLocked ? 'disabled' : '') + '><i class="fas fa-trash-alt"></i></button></div></td></tr>'; }).join(''); $('tCnt').textContent = transactions.length + ' transaksi'; }
 
-    function calc() {
-      let tKoin = 0, tModal = 0;
-      transactions.forEach(t => { tKoin += Number(t.jumlah) || 0; tModal += Number(t.total) || 0; });
-      const avg = tKoin > 0 ? tModal / tKoin : 0; const cur = parseFloat($('curPrice').value) || 0;
-      const curVal = tKoin * cur; const pnl = curVal - tModal; const pnlPct = tModal > 0 ? (pnl / tModal) * 100 : 0;
-      $('sKoin').textContent = fKoin(tKoin); $('sModal').textContent = fRp(tModal); $('sAvg').textContent = fRp(avg);
-      const pnlEl = $('sPnl'); const pctEl = $('sPnlPct');
-      pnlEl.innerHTML = fRp(pnl) + ' ' + getTrendIcon(avg, cur); pnlEl.className = 'card-value ' + (pnl >= 0 ? 't-g' : 't-r');
-      pctEl.innerHTML = (pnl >= 0 ? '+' : '') + pnlPct.toFixed(2) + '% ' + getTrendIcon(avg, cur); pctEl.style.color = pnl >= 0 ? 'var(--green)' : 'var(--accent)';
-      if (cur > 0 && tKoin > 0) {
-        $('pnlBar').style.display = 'block'; $('pnCur').innerHTML = fRp(curVal); $('pnCost').innerHTML = fRp(tModal);
-        $('pnAmt').innerHTML = fRp(pnl) + ' ' + getTrendIcon(avg, cur); $('pnAmt').className = 'pnl-val ' + (pnl >= 0 ? 't-g' : 't-r');
-        $('pnPct').innerHTML = (pnl >= 0 ? '+' : '') + pnlPct.toFixed(2) + '% ' + getTrendIcon(avg, cur); $('pnPct').style.color = pnl >= 0 ? 'var(--green)' : 'var(--accent)';
-        const prog = Math.max(0, Math.min(100, 50 + pnlPct / 2)); const fill = $('pnFill'); fill.style.width = prog + '%';
-        fill.style.background = pnl >= 0 ? 'linear-gradient(90deg,var(--green),var(--green2))' : 'linear-gradient(90deg,var(--accent),#ff6b81)';
-      } else { $('pnlBar').style.display = 'none'; }
-      render();
-    }
+    function calc() { let tKoin = 0, tModal = 0; transactions.forEach(t => { tKoin += Number(t.jumlah) || 0; tModal += Number(t.total) || 0; }); const avg = tKoin > 0 ? tModal / tKoin : 0; const cur = parseFloat($('curPrice').value) || 0; const curVal = tKoin * cur; const pnl = curVal - tModal; const pnlPct = tModal > 0 ? (pnl / tModal) * 100 : 0; $('sKoin').textContent = fKoin(tKoin); $('sModal').textContent = fRp(tModal); $('sAvg').textContent = fRp(avg); const pnlEl = $('sPnl'); const pctEl = $('sPnlPct'); pnlEl.innerHTML = fRp(pnl) + ' ' + getTrendIcon(avg, cur); pnlEl.className = 'card-value ' + (pnl >= 0 ? 't-g' : 't-r'); pctEl.innerHTML = (pnl >= 0 ? '+' : '') + pnlPct.toFixed(2) + '% ' + getTrendIcon(avg, cur); pctEl.style.color = pnl >= 0 ? 'var(--green)' : 'var(--accent)'; if (cur > 0 && tKoin > 0) { $('pnlBar').style.display = 'block'; $('pnCur').innerHTML = fRp(curVal); $('pnCost').innerHTML = fRp(tModal); $('pnAmt').innerHTML = fRp(pnl) + ' ' + getTrendIcon(avg, cur); $('pnAmt').className = 'pnl-val ' + (pnl >= 0 ? 't-g' : 't-r'); $('pnPct').innerHTML = (pnl >= 0 ? '+' : '') + pnlPct.toFixed(2) + '% ' + getTrendIcon(avg, cur); $('pnPct').style.color = pnl >= 0 ? 'var(--green)' : 'var(--accent)'; const prog = Math.max(0, Math.min(100, 50 + pnlPct / 2)); const fill = $('pnFill'); fill.style.width = prog + '%'; fill.style.background = pnl >= 0 ? 'linear-gradient(90deg,var(--green),var(--green2))' : 'linear-gradient(90deg,var(--accent),#ff6b81)'; } else { $('pnlBar').style.display = 'none'; } render(); }
 
-    $('btnAdd').addEventListener('click', async () => {
-      const coin = $('inCoin').value; const tanggal = $('inDate').value; const harga = parseFloat($('inPrice').value); const total = parseFloat($('inTotal').value);
-      if (!tanggal) { toast('Tanggal harus diisi', 'error'); return; } if (!harga || harga <= 0) { toast('Harga harus > 0', 'error'); return; } if (!total || total <= 0) { toast('Total harus > 0', 'error'); return; }
-      const btn = $('btnAdd'); btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-      const ok = await addTx({ coin, tanggal, harga, total });
-      if (ok) { closeModal(true); }
-      btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Simpan Transaksi';
-    });
+    $('btnAdd').addEventListener('click', async () => { const coin = $('inCoin').value; const tanggal = $('inDate').value; const harga = parseFloat($('inPrice').value); const total = parseFloat($('inTotal').value); if (!tanggal) { toast('Tanggal harus diisi', 'error'); return; } if (!harga || harga <= 0) { toast('Harga harus > 0', 'error'); return; } if (!total || total <= 0) { toast('Total harus > 0', 'error'); return; } const btn = $('btnAdd'); btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...'; const ok = await addTx({ coin, tanggal, harga, total }); if (ok) { closeModal(true); } btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Simpan Transaksi'; });
 
     function handleDel(id) { if (!id) return; const btn = event.target.closest('.btn-del'); if (btn) { btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; btn.disabled = true; } delTx(id); }
     $('curPrice').addEventListener('input', calc);
@@ -497,7 +370,6 @@
     function initParticles() { const c = $('particles'); const colors = ['rgba(233,69,96,0.3)', 'rgba(240,185,11,0.25)', 'rgba(0,214,143,0.2)']; for (let i = 0; i < 18; i++) { const p = document.createElement('div'); p.className = 'particle'; const sz = 2 + Math.random() * 4; p.style.width = sz + 'px'; p.style.height = sz + 'px'; p.style.left = Math.random() * 100 + '%'; p.style.bottom = '-10px'; p.style.background = colors[Math.floor(Math.random() * colors.length)]; p.style.animationDuration = (10 + Math.random() * 18) + 's'; p.style.animationDelay = Math.random() * 12 + 's'; c.appendChild(p); } }
 
     async function initApp() { initParticles(); await checkConn(); await fetchData(); }
-    
     checkAuth();
   </script>
 </body>
