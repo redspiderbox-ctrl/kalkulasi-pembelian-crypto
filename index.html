@@ -314,7 +314,7 @@
     $('loginForm').addEventListener('submit', (e) => { e.preventDefault(); if ($('loginUser').value === VALID_USER && $('loginPass').value === VALID_PASS) { localStorage.setItem('doge_auth', 'true'); $('loginError').style.display = 'none'; checkAuth(); } else { $('loginError').style.display = 'block'; $('loginPass').value = ''; } });
     $('btnLogout').addEventListener('click', () => { localStorage.removeItem('doge_auth'); $('loginUser').value = ''; $('loginPass').value = ''; checkAuth(); });
 
-    const DEFAULT_API_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_DEPLOY_ANDA/exec';
+    const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbwgGyUDZqP0KGgEuFIDVwblUmHxWgjNA_J3m3F3-XMigTl-t3mr0VUKsbd0CP2PEChY/exec';
     let API_URL = localStorage.getItem('gs_api_url') || DEFAULT_API_URL;
     let transactions = [], lockedRows = JSON.parse(localStorage.getItem('doge_locks') || '[]');
 
