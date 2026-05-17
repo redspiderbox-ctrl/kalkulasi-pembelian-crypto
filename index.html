@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kalkulasi Pembelian CRYPTO</title>
+  <title>Kalkulasi Pembelian DOGE</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   
@@ -54,7 +54,10 @@
       margin: 0 auto 20px; box-shadow: 0 0 30px rgba(240,185,11,0.3);
     }
     .login-box h2 { font-size: 22px; margin-bottom: 8px; }
-    .login-box p { color: var(--muted); font-size: 13px; margin-bottom: 30px; }
+    .login-box p { color: var(--muted); font-size: 13px; margin-bottom: 6px; }
+    /* Tanggal Realtime di Login */
+    .login-date { color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 25px; display: block; letter-spacing: 0.5px; }
+    
     .login-field { position: relative; margin-bottom: 20px; text-align: left; }
     .login-field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
     .login-field input {
@@ -232,8 +235,10 @@
     <div class="login-box">
       <div class="login-icon"><i class="fas fa-cubes"></i></div>
       <h2>Selamat Datang</h2>
-      <p>Masuk ke sistem Kalkulasi Pembelian CRYPTO</p>
-      <!-- Atribut autocomplete="off" dan form novalidate ditambahkan agar browser tidak memunculkan notif ganti password -->
+      <p>Masuk ke sistem Kalkulasi Pembelian DOGE</p>
+      <!-- Tanggal Realtime -->
+      <span class="login-date" id="loginDate"></span>
+      
       <form id="loginForm" autocomplete="off" novalidate>
         <div class="login-field">
           <label>Username</label>
@@ -243,7 +248,6 @@
         <div class="login-field">
           <label>Password</label>
           <i class="fas fa-lock input-icon"></i>
-          <!-- type="password" diganti ke "text" lalu di-hidden via CSS agar Chrome tidak mendeteksi password lemah -->
           <input type="text" id="loginPass" class="secure-input" placeholder="Masukkan password" autocomplete="off" required />
         </div>
         <button type="submit" class="login-btn"><i class="fas fa-sign-in-alt"></i> Masuk</button>
@@ -258,7 +262,7 @@
       <header class="header" id="mainHeader">
         <div class="coin-icon"><i class="fas fa-cubes"></i></div>
         <div class="header-text" id="headerText">
-          <h1>Kalkulasi Pembelian CRYPTO</h1>
+          <h1>Kalkulasi Pembelian DOGE</h1>
           <p>Track harga rata-rata, total modal, dan profit/loss</p>
         </div>
         <div class="header-actions">
@@ -322,7 +326,7 @@
         </div>
       </section>
 
-      <footer class="footer">Data tersimpan di <a href="https://docs.google.com/spreadsheets/d/1Sb0ao6UtW-pk_NzbADRyyOgGBImhJYfHdoMCpYffHuI/edit" target="_blank">SERVER Gregorius Berlin @ 2020 </a></footer>
+      <footer class="footer">Data tersimpan di <a href="https://docs.google.com/spreadsheets/d/1Sb0ao6UtW-pk_NzbADRyyOgGBImhJYfHdoMCpYffHuI/edit" target="_blank">Google Sheet</a></footer>
     </div>
 
     <!-- Modal Form -->
@@ -334,6 +338,7 @@
         </div>
         <div class="form-grid">
           <div class="form-group"><label for="inCoin">Coin</label><select id="inCoin"><option value="DOGE" selected>DOGE</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="SOL">SOL</option><option value="XRP">XRP</option><option value="ADA">ADA</option></select></div>
+          <!-- Input Date akan diisi otomatis oleh JS -->
           <div class="form-group"><label for="inDate">Tanggal Beli</label><input type="date" id="inDate" /></div>
           <div class="form-group"><label for="inPrice">Harga Satuan (Rp)</label><input type="number" id="inPrice" placeholder="0" min="0" step="any" /></div>
           <div class="form-group"><label for="inTotal">Total Belanja (Rp)</label><input type="number" id="inTotal" placeholder="0" min="0" step="any" /></div>
@@ -343,10 +348,25 @@
     </div>
   </div>
 
-  <!-- Script untuk menyembunyikan karakter di input password agar tidak terdeteksi browser -->
   <style>.secure-input { -webkit-text-security: disc; -moz-text-security: disc; text-security: disc; }</style>
 
   <script>
+    // ====== FUNGSI TANGGAL REALTIME ======
+    function getTodayID() {
+      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+      const d = new Date();
+      return days[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    }
+    function getTodayISO() {
+      const d = new Date();
+      return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    // Isi teks tanggal di halaman login
+    document.getElementById('loginDate').textContent = getTodayID();
+
+    // ====== KONFIGURASI LOGIN ======
     const VALID_USER = 'admin';
     const VALID_PASS = 'admin123';
 
@@ -370,7 +390,6 @@
       e.preventDefault();
       const user = $('loginUser').value;
       const pass = $('loginPass').value;
-      
       if (user === VALID_USER && pass === VALID_PASS) {
         localStorage.setItem('doge_auth', 'true');
         $('loginError').style.display = 'none';
@@ -388,7 +407,8 @@
       checkAuth();
     });
 
-    const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbyZjIvxZjUXwZe6cqH8qEwkziwa9_RGUVPEuFDRWrJgBSmT3K-nNwf2WEi3pLtYMDA5/exec';
+    // ====== APLIKASI UTAMA ======
+    const DEFAULT_API_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_DEPLOY_ANDA/exec';
     let API_URL = localStorage.getItem('gs_api_url') || DEFAULT_API_URL;
     let transactions = [];
     let lockedRows = JSON.parse(localStorage.getItem('doge_locks') || '[]');
@@ -401,7 +421,10 @@
 
     const modalOverlay = $('modalOverlay'); const modalClose = $('modalClose'); const btnOpenModal = $('btnOpenModal');
     function isFormDirty() { return $('inPrice').value || $('inTotal').value; }
-    function openModal() { modalOverlay.classList.add('active'); $('inDate').value = new Date().toISOString().slice(0, 10); }
+    function openModal() { 
+      modalOverlay.classList.add('active'); 
+      $('inDate').value = getTodayISO(); // Otomatis set tanggal hari ini saat buka form
+    }
     function closeModal(force = false) {
       if (!force && isFormDirty()) { toast('Data form belum disimpan! Klik X lagi untuk membuang.', 'warning'); modalClose.dataset.confirmClose = 'true'; return; }
       modalOverlay.classList.remove('active'); $('inPrice').value = ''; $('inTotal').value = ''; modalClose.dataset.confirmClose = 'false';
@@ -417,7 +440,7 @@
     function getTrendIcon(buyPrice, curPrice) { if (!curPrice || curPrice <= 0 || !buyPrice || buyPrice <= 0) return '<span class="trend-icon trend-flat"><i class="fas fa-minus"></i></span>'; if (curPrice > buyPrice) return '<span class="trend-icon trend-up"><i class="fas fa-caret-up"></i></span>'; else if (curPrice < buyPrice) return '<span class="trend-icon trend-down"><i class="fas fa-caret-down"></i></span>'; return '<span class="trend-icon trend-flat"><i class="fas fa-minus"></i></span>'; }
     function toast(msg, type = 'info') { const box = $('toastBox'); const el = document.createElement('div'); el.className = 'toast ' + type; const ic = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'; el.innerHTML = '<i class="fas ' + ic + '"></i> ' + msg; box.appendChild(el); setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(40px)'; el.style.transition = '0.3s'; setTimeout(() => el.remove(), 300); }, 3500); }
 
-    async function checkConn() { const dot = $('statusDot'); const txt = $('statusText'); dot.className = 'status-dot'; txt.textContent = 'Memeriksa...'; try { const r = await fetch(API_URL + '?action=ping', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { dot.className = 'status-dot ok'; txt.textContent = 'Terhubung ke SERVER'; return true; } throw new Error(j.message); } catch (e) { dot.className = 'status-dot'; txt.textContent = 'Offline'; return false; } }
+    async function checkConn() { const dot = $('statusDot'); const txt = $('statusText'); dot.className = 'status-dot'; txt.textContent = 'Memeriksa...'; try { const r = await fetch(API_URL + '?action=ping', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { dot.className = 'status-dot ok'; txt.textContent = 'Terhubung'; return true; } throw new Error(j.message); } catch (e) { dot.className = 'status-dot'; txt.textContent = 'Offline'; return false; } }
     async function fetchData() { try { const r = await fetch(API_URL + '?action=read', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { transactions = j.data || []; render(); calc(); return; } } catch (e) { console.warn('Fetch gagal:', e); } transactions = JSON.parse(localStorage.getItem('doge_tx') || '[]'); render(); calc(); }
     async function addTx(tx) { const p = new URLSearchParams({ action: 'add', coin: tx.coin, tanggal: tx.tanggal, harga: tx.harga, total: tx.total }); try { const r = await fetch(API_URL + '?' + p.toString(), { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { toast('Transaksi berhasil disimpan', 'success'); await fetchData(); return true; } throw new Error(j.message); } catch (e) { console.warn('Simpan lokal:', e); tx.id = 'TX-' + Date.now().toString(36).toUpperCase(); tx.timestamp = new Date().toISOString(); tx.jumlah = tx.harga > 0 ? tx.total / tx.harga : 0; transactions.push(tx); saveLocal(); toast('Disimpan lokal', 'error'); render(); calc(); return true; } }
     async function delTx(id) { if (lockedRows.includes(id)) { toast('Transaksi terkunci!', 'warning'); return; } try { const p = new URLSearchParams({ action: 'delete', id: id }); const r = await fetch(API_URL + '?' + p.toString(), { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { toast('Transaksi dihapus', 'success'); await fetchData(); return; } } catch (e) { console.warn('Hapus lokal:', e); } transactions = transactions.filter(t => t.id !== id); saveLocal(); toast('Dihapus lokal', 'info'); render(); calc(); }
