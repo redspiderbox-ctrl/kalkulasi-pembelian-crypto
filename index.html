@@ -33,7 +33,47 @@
     .particle { position: absolute; border-radius: 50%; animation: floatUp linear infinite; opacity: 0; }
     @keyframes floatUp { 0% { opacity: 0; transform: translateY(0) scale(0.5); } 15% { opacity: 1; } 85% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-100vh) scale(1.2); } }
 
+    /* ====== HALAMAN LOGIN ====== */
+    .login-wrapper {
+      position: fixed; inset: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg);
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .login-wrapper.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    
+    .login-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 40px 32px; width: 90%; max-width: 400px;
+      box-shadow: 0 20px 50px var(--shadow); position: relative; z-index: 1;
+    }
+    .login-logo { text-align: center; margin-bottom: 24px; }
+    .login-logo .coin-icon { width: 64px; height: 64px; margin: 0 auto 16px; font-size: 28px; }
+    .login-logo h2 { font-size: 20px; font-weight: 700; color: var(--fg); }
+    .login-logo p { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    
+    .login-form { display: flex; flex-direction: column; gap: 16px; }
+    .input-group { position: relative; }
+    .input-group i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 14px; pointer-events: none; }
+    .input-group input {
+      width: 100%; padding: 14px 14px 14px 42px; background: var(--input-bg);
+      border: 1px solid var(--border); border-radius: 12px; color: var(--fg);
+      font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color 0.2s;
+    }
+    .input-group input:focus { outline: none; border-color: var(--accent); }
+    .input-group input::placeholder { color: var(--muted); font-family: 'Space Grotesk', sans-serif; }
+    
+    .btn-login {
+      width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent), #c23152);
+      color: #fff; border: none; border-radius: 12px; font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px; font-weight: 600; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+      margin-top: 8px;
+    }
+    .btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(233,69,96,0.3); }
+    .login-error { color: var(--accent); font-size: 12px; text-align: center; min-height: 18px; margin-top: 4px; }
+
     .container { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 20px 16px 60px; }
+    .app-wrapper.hidden { display: none; } /* Sembunyikan app jika belum login */
 
     .header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding: 20px; border-bottom: 1px solid var(--border); background-color: var(--header-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 0 0 16px 16px; position: sticky; top: 0; z-index: 50; transition: background-color 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
     .header.is-scrolled { box-shadow: 0 4px 20px var(--shadow); border-bottom-color: transparent; }
@@ -47,23 +87,16 @@
     .status-badge { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; color: var(--muted); white-space: nowrap; }
     .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transition: all 0.3s; flex-shrink: 0; }
     .status-dot.ok { background: var(--green); box-shadow: 0 0 8px rgba(0,214,143,0.5); }
-    .theme-toggle { background: var(--card); border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fg); font-size: 14px; transition: all 0.3s; }
-    .theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
+    
+    /* Tombol Logout & Tema */
+    .header-btn { background: var(--card); border: 1px solid var(--border); border-radius: 20px; height: 36px; padding: 0 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--muted); font-size: 12px; font-weight: 600; gap: 6px; transition: all 0.3s; font-family: 'Space Grotesk', sans-serif; }
+    .header-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle { width: 36px; padding: 0; border-radius: 50%; font-size: 14px; }
 
-    /* ====== MODAL SLIDE-UP (MENGAMBANG DARI BAWAH) ====== */
     .modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
-    
-    .modal-content {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: var(--card); border-top: 1px solid var(--border);
-      border-radius: 24px 24px 0 0; padding: 24px 24px 32px;
-      max-width: 920px; margin: 0 auto;
-      transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 -10px 40px var(--shadow);
-    }
+    .modal-content { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--border); border-radius: 24px 24px 0 0; padding: 24px 24px 32px; max-width: 920px; margin: 0 auto; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 -10px 40px var(--shadow); }
     .modal-overlay.active .modal-content { transform: translateY(0); }
-    
     .modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
     .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
     .modal-header h2 { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
@@ -82,15 +115,8 @@
     .btn-cfg-save { background: var(--accent); color: #fff; }
     .btn-cfg-cancel { background: var(--card2); color: var(--muted); }
 
-    /* ====== TOMBOL STATIS TAMBAH TRANSAKSI ====== */
     .add-section { margin-bottom: 16px; }
-    .btn-open-modal {
-      width: 100%; padding: 14px; background: var(--card); border: 2px dashed var(--border);
-      border-radius: 14px; color: var(--accent); font-family: 'Space Grotesk', sans-serif;
-      font-size: 15px; font-weight: 600; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      transition: all 0.2s;
-    }
+    .btn-open-modal { width: 100%; padding: 14px; background: var(--card); border: 2px dashed var(--border); border-radius: 14px; color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
     .btn-open-modal:hover { border-color: var(--accent); background: rgba(233, 69, 96, 0.05); }
 
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
@@ -196,102 +222,168 @@
   <div class="particles" id="particles"></div>
   <div class="toast-box" id="toastBox"></div>
 
-  <!-- Modal Slide-Up (Mengambang dari bawah) -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal-content">
-      <div class="modal-handle"></div>
-      <div class="modal-header">
-        <h2><i class="fas fa-plus-circle"></i> Tambah Transaksi</h2>
-        <button class="modal-close" id="modalClose" aria-label="Tutup"><i class="fas fa-times"></i></button>
+  <!-- ====== HALAMAN LOGIN ====== -->
+  <div class="login-wrapper" id="loginWrapper">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="coin-icon"><i class="fas fa-cubes"></i></div>
+        <h2>Kalkulasi Pembelian DOGE</h2>
+        <p>Silakan masuk untuk melanjutkan</p>
       </div>
-      <div class="form-grid">
-        <div class="form-group"><label for="inCoin">Coin</label><select id="inCoin"><option value="DOGE" selected>DOGE</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="SOL">SOL</option><option value="XRP">XRP</option><option value="ADA">ADA</option></select></div>
-        <div class="form-group"><label for="inDate">Tanggal Beli</label><input type="date" id="inDate" /></div>
-        <div class="form-group"><label for="inPrice">Harga Satuan (Rp)</label><input type="number" id="inPrice" placeholder="0" min="0" step="any" /></div>
-        <div class="form-group"><label for="inTotal">Total Belanja (Rp)</label><input type="number" id="inTotal" placeholder="0" min="0" step="any" /></div>
-      </div>
-      <button class="btn-add" id="btnAdd"><i class="fas fa-save"></i> Simpan Transaksi</button>
+      <form class="login-form" id="loginForm">
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" id="loginUser" placeholder="Username" autocomplete="off" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="loginPass" placeholder="Password" required />
+        </div>
+        <button type="submit" class="btn-login">Masuk</button>
+        <div class="login-error" id="loginError"></div>
+      </form>
     </div>
   </div>
 
-  <div class="container">
-
-    <header class="header" id="mainHeader">
-      <div class="coin-icon"><i class="fas fa-cubes"></i></div>
-      <div class="header-text">
-        <h1 id="headerTitle">Kalkulasi Pembelian DOGE</h1>
-        <p>Track harga rata-rata, total modal, dan profit/loss</p>
-      </div>
-      <div class="header-actions">
-        <div class="status-badge">
-          <span class="status-dot" id="statusDot"></span>
-          <span id="statusText">Memeriksa...</span>
+  <!-- ====== HALAMAN APLIKASI ====== -->
+  <div class="app-wrapper hidden" id="appWrapper">
+    
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal-content">
+        <div class="modal-handle"></div>
+        <div class="modal-header">
+          <h2><i class="fas fa-plus-circle"></i> Tambah Transaksi</h2>
+          <button class="modal-close" id="modalClose" aria-label="Tutup"><i class="fas fa-times"></i></button>
         </div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Ganti Tema Terang/Gelap">
-          <i class="fas fa-moon" id="themeIcon"></i>
+        <div class="form-grid">
+          <div class="form-group"><label for="inCoin">Coin</label><select id="inCoin"><option value="DOGE" selected>DOGE</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="SOL">SOL</option><option value="XRP">XRP</option><option value="ADA">ADA</option></select></div>
+          <div class="form-group"><label for="inDate">Tanggal Beli</label><input type="date" id="inDate" /></div>
+          <div class="form-group"><label for="inPrice">Harga Satuan (Rp)</label><input type="number" id="inPrice" placeholder="0" min="0" step="any" /></div>
+          <div class="form-group"><label for="inTotal">Total Belanja (Rp)</label><input type="number" id="inTotal" placeholder="0" min="0" step="any" /></div>
+        </div>
+        <button class="btn-add" id="btnAdd"><i class="fas fa-save"></i> Simpan Transaksi</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <header class="header" id="mainHeader">
+        <div class="coin-icon"><i class="fas fa-cubes"></i></div>
+        <div class="header-text">
+          <h1 id="headerTitle">Kalkulasi Pembelian DOGE</h1>
+          <p>Track harga rata-rata, total modal, dan profit/loss</p>
+        </div>
+        <div class="header-actions">
+          <div class="status-badge">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Memeriksa...</span>
+          </div>
+          <button class="header-btn theme-toggle" id="themeToggle" aria-label="Ganti Tema">
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <button class="header-btn" id="logoutBtn" aria-label="Logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </header>
+
+      <div class="config-bar" id="configBar">
+        <label for="apiUrlInput">Google Apps Script Web App URL</label>
+        <input type="url" id="apiUrlInput" placeholder="https://script.google.com/macros/s/xxxx/exec" />
+        <div class="cfg-btns">
+          <button class="btn-cfg-save" id="cfgSave">Simpan & Test</button>
+          <button class="btn-cfg-cancel" id="cfgCancel">Batal</button>
+        </div>
+      </div>
+
+      <section class="add-section">
+        <button class="btn-open-modal" id="btnOpenModal">
+          <i class="fas fa-plus-circle"></i> Tambah Transaksi Baru
         </button>
-      </div>
-    </header>
+      </section>
 
-    <div class="config-bar" id="configBar">
-      <label for="apiUrlInput">Google Apps Script Web App URL</label>
-      <input type="url" id="apiUrlInput" placeholder="https://script.google.com/macros/s/xxxx/exec" />
-      <div class="cfg-btns">
-        <button class="btn-cfg-save" id="cfgSave">Simpan & Test</button>
-        <button class="btn-cfg-cancel" id="cfgCancel">Batal</button>
+      <section class="current-price-section" aria-label="Harga saat ini">
+        <label><i class="fas fa-chart-line"></i> Harga Saat Ini (Rp)</label>
+        <input type="number" id="curPrice" placeholder="Masukkan harga terkini" min="0" step="any" />
+      </section>
+
+      <div class="summary-grid">
+        <div class="summary-card sc-koin"><div class="card-label"><i class="fas fa-coins"></i> Total Koin</div><div class="card-value t-y" id="sKoin">0</div></div>
+        <div class="summary-card sc-modal"><div class="card-label"><i class="fas fa-wallet"></i> Total Modal</div><div class="card-value t-f" id="sModal">Rp 0</div></div>
+        <div class="summary-card sc-avg"><div class="card-label"><i class="fas fa-calculator"></i> Harga Rata-rata</div><div class="card-value t-g" id="sAvg">Rp 0</div></div>
+        <div class="summary-card sc-pnl"><div class="card-label"><i class="fas fa-chart-pie"></i> Profit / Loss</div><div class="card-value" id="sPnl">Rp 0</div><div class="card-sub" id="sPnlPct">0%</div></div>
       </div>
+
+      <section class="pnl-bar" id="pnlBar" style="display:none;" aria-label="Detail P/L">
+        <h3><i class="fas fa-signal"></i> Detail Perhitungan</h3>
+        <div class="pnl-row"><span class="pnl-label"><i class="fas fa-coins"></i> Nilai Investasi Saat Ini</span><span class="pnl-val t-f" id="pnCur">Rp 0</span></div>
+        <div class="pnl-row"><span class="pnl-label"><i class="fas fa-wallet"></i> Total Modal Awal</span><span class="pnl-val t-f" id="pnCost">Rp 0</span></div>
+        <div class="pnl-row"><span class="pnl-label"><i class="fas fa-chart-line"></i> Profit / Loss</span><span class="pnl-val" id="pnAmt">Rp 0</span></div>
+        <div class="pnl-row"><span class="pnl-label"><i class="fas fa-percent"></i> Persentase</span><span class="pnl-val" id="pnPct">0%</span></div>
+        <div class="pnl-progress"><div class="pnl-fill" id="pnFill" style="width:50%;background:var(--muted);"></div></div>
+      </section>
+
+      <section class="table-section" aria-label="Riwayat transaksi">
+        <div class="table-top">
+          <h2><i class="fas fa-list-ul"></i> Riwayat Transaksi</h2>
+          <span class="table-cnt" id="tCnt">0 transaksi</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>No</th><th>Coin</th><th>Tanggal</th><th>Harga Satuan</th><th>Total Belanja</th><th>Jumlah Koin</th><th>Status P/L</th><th>Aksi</th></tr></thead>
+            <tbody id="tBody"><tr><td colspan="8"><div class="empty-state"><i class="fas fa-inbox"></i><p>Belum ada transaksi.</p></div></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="footer">Data tersimpan di <a href="https://docs.google.com/spreadsheets/d/1Sb0ao6UtW-pk_NzbADRyyOgGBImhJYfHdoMCpYffHuI/edit" target="_blank">Google Sheet</a> &mdash; Kalkulasi Pembelian DOGE</footer>
     </div>
-
-    <!-- Tombol Statis Tambah Transaksi (Menempel di atas Harga Saat Ini) -->
-    <section class="add-section">
-      <button class="btn-open-modal" id="btnOpenModal">
-        <i class="fas fa-plus-circle"></i> Tambah Transaksi Baru
-      </button>
-    </section>
-
-    <section class="current-price-section" aria-label="Harga saat ini">
-      <label><i class="fas fa-chart-line"></i> Harga Saat Ini (Rp)</label>
-      <input type="number" id="curPrice" placeholder="Masukkan harga terkini" min="0" step="any" />
-    </section>
-
-    <div class="summary-grid">
-      <div class="summary-card sc-koin"><div class="card-label"><i class="fas fa-coins"></i> Total Koin</div><div class="card-value t-y" id="sKoin">0</div></div>
-      <div class="summary-card sc-modal"><div class="card-label"><i class="fas fa-wallet"></i> Total Modal</div><div class="card-value t-f" id="sModal">Rp 0</div></div>
-      <div class="summary-card sc-avg"><div class="card-label"><i class="fas fa-calculator"></i> Harga Rata-rata</div><div class="card-value t-g" id="sAvg">Rp 0</div></div>
-      <div class="summary-card sc-pnl"><div class="card-label"><i class="fas fa-chart-pie"></i> Profit / Loss</div><div class="card-value" id="sPnl">Rp 0</div><div class="card-sub" id="sPnlPct">0%</div></div>
-    </div>
-
-    <section class="pnl-bar" id="pnlBar" style="display:none;" aria-label="Detail P/L">
-      <h3><i class="fas fa-signal"></i> Detail Perhitungan</h3>
-      <div class="pnl-row"><span class="pnl-label"><i class="fas fa-coins"></i> Nilai Investasi Saat Ini</span><span class="pnl-val t-f" id="pnCur">Rp 0</span></div>
-      <div class="pnl-row"><span class="pnl-label"><i class="fas fa-wallet"></i> Total Modal Awal</span><span class="pnl-val t-f" id="pnCost">Rp 0</span></div>
-      <div class="pnl-row"><span class="pnl-label"><i class="fas fa-chart-line"></i> Profit / Loss</span><span class="pnl-val" id="pnAmt">Rp 0</span></div>
-      <div class="pnl-row"><span class="pnl-label"><i class="fas fa-percent"></i> Persentase</span><span class="pnl-val" id="pnPct">0%</span></div>
-      <div class="pnl-progress"><div class="pnl-fill" id="pnFill" style="width:50%;background:var(--muted);"></div></div>
-    </section>
-
-    <section class="table-section" aria-label="Riwayat transaksi">
-      <div class="table-top">
-        <h2><i class="fas fa-list-ul"></i> Riwayat Transaksi</h2>
-        <span class="table-cnt" id="tCnt">0 transaksi</span>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>No</th><th>Coin</th><th>Tanggal</th><th>Harga Satuan</th><th>Total Belanja</th><th>Jumlah Koin</th><th>Status P/L</th><th>Aksi</th></tr></thead>
-          <tbody id="tBody"><tr><td colspan="8"><div class="empty-state"><i class="fas fa-inbox"></i><p>Belum ada transaksi.</p></div></td></tr></tbody>
-        </table>
-      </div>
-    </section>
-
-    <footer class="footer">Data tersimpan di <a href="https://docs.google.com/spreadsheets/d/1Sb0ao6UtW-pk_NzbADRyyOgGBImhJYfHdoMCpYffHuI/edit" target="_blank">Google Sheet</a> &mdash; Kalkulasi Pembelian DOGE</footer>
   </div>
 
   <script>
-    const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbxiOQUDieSZYzjCBHjq5KLAeEFgwPGSa83pn-GNcSOLsAlz5CdZSEe4dZHkOaYQR1Dj/exec';
+    // ====== KONFIGURASI & STATE ======
+    const DEFAULT_API_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_DEPLOY_ANDA/exec';
     let API_URL = localStorage.getItem('gs_api_url') || DEFAULT_API_URL;
     let transactions = [];
     let lockedRows = JSON.parse(localStorage.getItem('doge_locks') || '[]');
     const $ = id => document.getElementById(id);
+
+    // ====== SISTEM LOGIN ======
+    const loginWrapper = $('loginWrapper');
+    const appWrapper = $('appWrapper');
+    const loginForm = $('loginForm');
+    const logoutBtn = $('logoutBtn');
+
+    function checkAuth() {
+      const isLogged = localStorage.getItem('doge_auth') === 'true';
+      if (isLogged) {
+        loginWrapper.classList.add('hidden');
+        appWrapper.classList.remove('hidden');
+        initApp(); // Jalankan aplikasi jika sudah login
+      } else {
+        loginWrapper.classList.remove('hidden');
+        appWrapper.classList.add('hidden');
+      }
+    }
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = $('loginUser').value;
+      const pass = $('loginPass').value;
+      
+      if (user === 'admin' && pass === 'admin123') {
+        localStorage.setItem('doge_auth', 'true');
+        $('loginError').textContent = '';
+        checkAuth();
+      } else {
+        $('loginError').textContent = 'Username atau password salah!';
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('doge_auth');
+      checkAuth();
+      toast('Berhasil logout', 'info');
+    });
 
     // ====== SISTEM TEMA ======
     const themeToggle = $('themeToggle'); const themeIcon = $('themeIcon'); const htmlEl = document.documentElement;
@@ -322,7 +414,7 @@
     function toast(msg, type = 'info') { const box = $('toastBox'); const el = document.createElement('div'); el.className = 'toast ' + type; const ic = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'; el.innerHTML = '<i class="fas ' + ic + '"></i> ' + msg; box.appendChild(el); setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(40px)'; el.style.transition = '0.3s'; setTimeout(() => el.remove(), 300); }, 3500); }
 
     // ====== KONEKSI GOOGLE SHEET ======
-    async function checkConn() { const dot = $('statusDot'); const txt = $('statusText'); dot.className = 'status-dot'; txt.textContent = 'Memeriksa koneksi...'; try { const r = await fetch(API_URL + '?action=ping', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { dot.className = 'status-dot ok'; txt.textContent = 'Terhubung ke Sheet'; return true; } throw new Error(j.message); } catch (e) { dot.className = 'status-dot'; txt.textContent = 'Offline — data lokal'; return false; } }
+    async function checkConn() { const dot = $('statusDot'); const txt = $('statusText'); dot.className = 'status-dot'; txt.textContent = 'Memeriksa...'; try { const r = await fetch(API_URL + '?action=ping', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { dot.className = 'status-dot ok'; txt.textContent = 'Terhubung'; return true; } throw new Error(j.message); } catch (e) { dot.className = 'status-dot'; txt.textContent = 'Offline'; return false; } }
     async function fetchData() { try { const r = await fetch(API_URL + '?action=read', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { transactions = j.data || []; render(); calc(); return; } } catch (e) { console.warn('Fetch gagal:', e); } transactions = JSON.parse(localStorage.getItem('doge_tx') || '[]'); render(); calc(); }
     async function addTx(tx) { const p = new URLSearchParams({ action: 'add', coin: tx.coin, tanggal: tx.tanggal, harga: tx.harga, total: tx.total }); try { const r = await fetch(API_URL + '?' + p.toString(), { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { toast('Transaksi berhasil disimpan', 'success'); await fetchData(); return true; } throw new Error(j.message); } catch (e) { console.warn('Simpan lokal:', e); tx.id = 'TX-' + Date.now().toString(36).toUpperCase(); tx.timestamp = new Date().toISOString(); tx.jumlah = tx.harga > 0 ? tx.total / tx.harga : 0; transactions.push(tx); saveLocal(); toast('Disimpan lokal (Sheet tidak terhubung)', 'error'); render(); calc(); return true; } }
     async function delTx(id) { if (lockedRows.includes(id)) { toast('Transaksi terkunci! Buka kunci terlebih dahulu.', 'warning'); return; } try { const p = new URLSearchParams({ action: 'delete', id: id }); const r = await fetch(API_URL + '?' + p.toString(), { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { toast('Transaksi dihapus', 'success'); await fetchData(); return; } } catch (e) { console.warn('Hapus lokal:', e); } transactions = transactions.filter(t => t.id !== id); saveLocal(); toast('Dihapus dari data lokal', 'info'); render(); calc(); }
@@ -403,8 +495,15 @@
     $('cfgCancel').addEventListener('click', () => { $('configBar').classList.remove('show'); });
 
     function initParticles() { const c = $('particles'); const colors = ['rgba(233,69,96,0.3)', 'rgba(240,185,11,0.25)', 'rgba(0,214,143,0.2)']; for (let i = 0; i < 18; i++) { const p = document.createElement('div'); p.className = 'particle'; const sz = 2 + Math.random() * 4; p.style.width = sz + 'px'; p.style.height = sz + 'px'; p.style.left = Math.random() * 100 + '%'; p.style.bottom = '-10px'; p.style.background = colors[Math.floor(Math.random() * colors.length)]; p.style.animationDuration = (10 + Math.random() * 18) + 's'; p.style.animationDelay = Math.random() * 12 + 's'; c.appendChild(p); } }
-    async function init() { initParticles(); await checkConn(); await fetchData(); }
-    init();
+    
+    async function initApp() {
+      initParticles();
+      await checkConn();
+      await fetchData();
+    }
+
+    // Cek sesi login saat pertama kali halaman dimuat
+    checkAuth();
   </script>
 </body>
 </html>
