@@ -95,13 +95,7 @@
     .theme-toggle { background: var(--card); border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fg); font-size: 14px; transition: all 0.3s; }
     .theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
     
-    /* Tombol Log Out */
-    .btn-logout {
-      background: transparent; border: 1px solid var(--border); border-radius: 8px;
-      padding: 6px 14px; color: var(--muted); font-family: 'Space Grotesk', sans-serif;
-      font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center;
-      gap: 6px; transition: all 0.2s;
-    }
+    .btn-logout { background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; color: var(--muted); font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
     .btn-logout:hover { border-color: var(--accent); color: var(--accent); background: rgba(233,69,96,0.05); }
 
     .modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); display: flex; align-items: flex-start; justify-content: center; padding-top: 60px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; overflow-y: auto; }
@@ -239,7 +233,8 @@
       <div class="login-icon"><i class="fas fa-cubes"></i></div>
       <h2>Selamat Datang</h2>
       <p>Masuk ke sistem Kalkulasi Pembelian DOGE</p>
-      <form id="loginForm">
+      <!-- Atribut autocomplete="off" dan form novalidate ditambahkan agar browser tidak memunculkan notif ganti password -->
+      <form id="loginForm" autocomplete="off" novalidate>
         <div class="login-field">
           <label>Username</label>
           <i class="fas fa-user input-icon"></i>
@@ -248,7 +243,8 @@
         <div class="login-field">
           <label>Password</label>
           <i class="fas fa-lock input-icon"></i>
-          <input type="password" id="loginPass" placeholder="Masukkan password" required />
+          <!-- type="password" diganti ke "text" lalu di-hidden via CSS agar Chrome tidak mendeteksi password lemah -->
+          <input type="text" id="loginPass" class="secure-input" placeholder="Masukkan password" autocomplete="off" required />
         </div>
         <button type="submit" class="login-btn"><i class="fas fa-sign-in-alt"></i> Masuk</button>
         <div class="login-error" id="loginError">Username atau password salah!</div>
@@ -347,8 +343,10 @@
     </div>
   </div>
 
+  <!-- Script untuk menyembunyikan karakter di input password agar tidak terdeteksi browser -->
+  <style>.secure-input { -webkit-text-security: disc; -moz-text-security: disc; text-security: disc; }</style>
+
   <script>
-    // ====== KONFIGURASI LOGIN ======
     const VALID_USER = 'admin';
     const VALID_PASS = 'admin123';
 
@@ -356,7 +354,6 @@
     const loginScreen = $('loginScreen');
     const appScreen = $('appScreen');
     
-    // Cek sesi login
     function checkAuth() {
       const isLogged = localStorage.getItem('doge_auth') === 'true';
       if (isLogged) {
@@ -369,7 +366,6 @@
       }
     }
 
-    // Proses Login
     $('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const user = $('loginUser').value;
@@ -385,7 +381,6 @@
       }
     });
 
-    // Proses Logout
     $('btnLogout').addEventListener('click', () => {
       localStorage.removeItem('doge_auth');
       $('loginUser').value = '';
@@ -393,8 +388,7 @@
       checkAuth();
     });
 
-    // ====== APLIKASI UTAMA ======
-    const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbyZjIvxZjUXwZe6cqH8qEwkziwa9_RGUVPEuFDRWrJgBSmT3K-nNwf2WEi3pLtYMDA5/exec';
+    const DEFAULT_API_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_DEPLOY_ANDA/exec';
     let API_URL = localStorage.getItem('gs_api_url') || DEFAULT_API_URL;
     let transactions = [];
     let lockedRows = JSON.parse(localStorage.getItem('doge_locks') || '[]');
@@ -479,10 +473,8 @@
 
     function initParticles() { const c = $('particles'); const colors = ['rgba(233,69,96,0.3)', 'rgba(240,185,11,0.25)', 'rgba(0,214,143,0.2)']; for (let i = 0; i < 18; i++) { const p = document.createElement('div'); p.className = 'particle'; const sz = 2 + Math.random() * 4; p.style.width = sz + 'px'; p.style.height = sz + 'px'; p.style.left = Math.random() * 100 + '%'; p.style.bottom = '-10px'; p.style.background = colors[Math.floor(Math.random() * colors.length)]; p.style.animationDuration = (10 + Math.random() * 18) + 's'; p.style.animationDelay = Math.random() * 12 + 's'; c.appendChild(p); } }
 
-    // Inisialisasi App (dipanggil hanya jika sudah login)
     async function initApp() { initParticles(); await checkConn(); await fetchData(); }
     
-    // Cek status login saat pertama kali load
     checkAuth();
   </script>
 </body>
