@@ -33,23 +33,14 @@
     .particle { position: absolute; border-radius: 50%; animation: floatUp linear infinite; opacity: 0; }
     @keyframes floatUp { 0% { opacity: 0; transform: translateY(0) scale(0.5); } 15% { opacity: 1; } 85% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-100vh) scale(1.2); } }
 
-    .container { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 20px 16px 100px; /* Padding bawah ditambah agar tidak tertutup tombol */ }
+    .container { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 20px 16px 100px; }
 
     .header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding: 20px; border-bottom: 1px solid var(--border); background-color: var(--header-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 0 0 16px 16px; position: sticky; top: 0; z-index: 50; transition: background-color 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
     .header.is-scrolled { box-shadow: 0 4px 20px var(--shadow); border-bottom-color: transparent; }
-    
-    /* Ikon Blockchain Pengganti Logo D */
-    .coin-icon {
-      width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #d4a017);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; color: #111;
-      box-shadow: 0 0 30px rgba(240,185,11,0.3); animation: coinGlow 3s ease-in-out infinite;
-      position: relative; flex-shrink: 0;
-    }
+    .coin-icon { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #d4a017); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #111; box-shadow: 0 0 30px rgba(240,185,11,0.3); animation: coinGlow 3s ease-in-out infinite; position: relative; flex-shrink: 0; }
     .coin-icon::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid rgba(240,185,11,0.3); animation: coinPulse 3s ease-in-out infinite; }
     @keyframes coinGlow { 0%,100% { box-shadow: 0 0 30px rgba(240,185,11,0.3); } 50% { box-shadow: 0 0 50px rgba(240,185,11,0.5); } }
     @keyframes coinPulse { 0%,100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.15); opacity: 0.6; } }
-    
     .header-text h1 { font-size: 22px; font-weight: 700; background: linear-gradient(90deg, var(--fg), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .header-text p { color: var(--muted); font-size: 12px; margin-top: 2px; }
     .header-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
@@ -59,15 +50,14 @@
     .theme-toggle { background: var(--card); border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fg); font-size: 14px; transition: all 0.3s; }
     .theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
 
-    .modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
-    .modal-overlay.active { opacity: 1; visibility: visible; }
-    .modal-content { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; width: 90%; max-width: 500px; transform: translateY(30px) scale(0.95); transition: transform 0.3s ease; box-shadow: 0 20px 50px var(--shadow); }
-    .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
-    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-    .modal-header h2 { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-    .modal-header h2 i { color: var(--accent); }
-    .modal-close { background: var(--bg2); border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--muted); font-size: 14px; transition: all 0.2s; }
-    .modal-close:hover { color: var(--accent); border-color: var(--accent); background: rgba(233,69,96,0.1); }
+    /* ====== INLINE FORM (TERSEMBUNYI DEFAULT) ====== */
+    .input-section { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 0; margin-bottom: 24px; max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.4s ease, padding 0.4s ease, margin 0.4s ease, opacity 0.3s ease, border-width 0.3s; border-width: 0; }
+    .input-section.show { padding: 24px; opacity: 1; max-height: 500px; border-width: 1px; }
+    .input-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .input-header h2 { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+    .input-header h2 i { color: var(--accent); }
+    .input-close { background: var(--bg2); border: 1px solid var(--border); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--muted); font-size: 12px; transition: all 0.2s; }
+    .input-close:hover { color: var(--accent); border-color: var(--accent); }
 
     .config-bar { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 24px; display: none; }
     .config-bar.show { display: block; animation: slideDown 0.3s ease; }
@@ -163,7 +153,7 @@
     [data-theme="light"] .toast.warning { background: #fffbeb; color: #b45309; }
     @keyframes toastIn { from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:translateX(0); } }
 
-    /* ====== TOMBOL TAMBAH TRANSASKI BARU (POSISI TENGAH BAWAH) ====== */
+    /* ====== TOMBOL TAMBAH TRANSASKI (TENGAH BAWAH) ====== */
     .fab-add {
       position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
       z-index: 90; height: 56px; padding: 0 24px; border-radius: 28px; border: none;
@@ -173,9 +163,6 @@
       box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4); transition: transform 0.2s, box-shadow 0.2s;
     }
     .fab-add:hover { transform: translateX(-50%) scale(1.05); box-shadow: 0 6px 20px rgba(233, 69, 96, 0.5); }
-    .fab-add i { transition: transform 0.3s ease; }
-    .fab-add.active { border-radius: 50%; width: 56px; padding: 0; }
-    .fab-add.active i { transform: rotate(45deg); }
 
     .footer { text-align: center; padding: 24px 0; color: var(--muted); font-size: 12px; border-top: 1px solid var(--border); }
     .footer a { color: var(--gold); text-decoration: none; }
@@ -197,31 +184,14 @@
   <div class="particles" id="particles"></div>
   <div class="toast-box" id="toastBox"></div>
 
-  <!-- Tombol Tambah Transaksi (Posisi Tengah Bawah) -->
   <button class="fab-add" id="fabAdd" aria-label="Tambah Transaksi">
-    <i class="fas fa-plus"></i> <span class="fab-text">Tambah Transaksi</span>
+    <i class="fas fa-plus"></i> <span>Tambah Transaksi</span>
   </button>
-
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2><i class="fas fa-plus-circle"></i> Tambah Transaksi</h2>
-        <button class="modal-close" id="modalClose" aria-label="Tutup"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="form-grid">
-        <div class="form-group"><label for="inCoin">Coin</label><select id="inCoin"><option value="DOGE" selected>DOGE</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="SOL">SOL</option><option value="XRP">XRP</option><option value="ADA">ADA</option></select></div>
-        <div class="form-group"><label for="inDate">Tanggal Beli</label><input type="date" id="inDate" /></div>
-        <div class="form-group"><label for="inPrice">Harga Satuan (Rp)</label><input type="number" id="inPrice" placeholder="0" min="0" step="any" /></div>
-        <div class="form-group"><label for="inTotal">Total Belanja (Rp)</label><input type="number" id="inTotal" placeholder="0" min="0" step="any" /></div>
-      </div>
-      <button class="btn-add" id="btnAdd"><i class="fas fa-save"></i> Simpan Transaksi</button>
-    </div>
-  </div>
 
   <div class="container">
 
     <header class="header" id="mainHeader">
-      <div class="coin-icon"><i class="fas fa-cubes"></i></div> <!-- Ikon Blockchain -->
+      <div class="coin-icon"><i class="fas fa-cubes"></i></div>
       <div class="header-text">
         <h1>Kalkulasi Pembelian DOGE</h1>
         <p>Track harga rata-rata, total modal, dan profit/loss</p>
@@ -245,6 +215,21 @@
         <button class="btn-cfg-cancel" id="cfgCancel">Batal</button>
       </div>
     </div>
+
+    <!-- MENU TAMBAH TRANSAKSI (MENEMPEL DI ATAS HARGA SAAT INI) -->
+    <section class="input-section" id="inputSection" aria-label="Form tambah transaksi">
+      <div class="input-header">
+        <h2><i class="fas fa-plus-circle"></i> Tambah Transaksi</h2>
+        <button class="input-close" id="inputClose" aria-label="Tutup Form"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label for="inCoin">Coin</label><select id="inCoin"><option value="DOGE" selected>DOGE</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="SOL">SOL</option><option value="XRP">XRP</option><option value="ADA">ADA</option></select></div>
+        <div class="form-group"><label for="inDate">Tanggal Beli</label><input type="date" id="inDate" /></div>
+        <div class="form-group"><label for="inPrice">Harga Satuan (Rp)</label><input type="number" id="inPrice" placeholder="0" min="0" step="any" /></div>
+        <div class="form-group"><label for="inTotal">Total Belanja (Rp)</label><input type="number" id="inTotal" placeholder="0" min="0" step="any" /></div>
+      </div>
+      <button class="btn-add" id="btnAdd"><i class="fas fa-save"></i> Simpan Transaksi</button>
+    </section>
 
     <section class="current-price-section" aria-label="Harga saat ini">
       <label><i class="fas fa-chart-line"></i> Harga Saat Ini (Rp)</label>
@@ -284,36 +269,49 @@
   </div>
 
   <script>
-    const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbx5QjyBkaENczC_99kE5QD9Kd37PEl3pSmkFH-SXHXnn_pPg1yQYPk41-XXtt_R2uCo/exec';
+    const DEFAULT_API_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_DEPLOY_ANDA/exec';
     let API_URL = localStorage.getItem('gs_api_url') || DEFAULT_API_URL;
     let transactions = [];
     let lockedRows = JSON.parse(localStorage.getItem('doge_locks') || '[]');
     const $ = id => document.getElementById(id);
 
+    // ====== SISTEM TEMA ======
     const themeToggle = $('themeToggle'); const themeIcon = $('themeIcon'); const htmlEl = document.documentElement;
     function getPreferredTheme() { const saved = localStorage.getItem('theme'); if (saved) return saved; return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
     function applyTheme(theme) { if (theme === 'light') { htmlEl.setAttribute('data-theme', 'light'); themeIcon.className = 'fas fa-sun'; } else { htmlEl.removeAttribute('data-theme'); themeIcon.className = 'fas fa-moon'; } localStorage.setItem('theme', theme); }
     applyTheme(getPreferredTheme());
     themeToggle.addEventListener('click', () => { const current = htmlEl.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; applyTheme(current === 'light' ? 'dark' : 'light'); });
 
-    const fabAdd = $('fabAdd'); const modalOverlay = $('modalOverlay'); const modalClose = $('modalClose'); const fabText = fabAdd.querySelector('.fab-text');
-    function isFormDirty() { return $('inPrice').value || $('inTotal').value; }
-    function openModal() { modalOverlay.classList.add('active'); fabAdd.classList.add('active'); if(fabText) fabText.style.display = 'none'; $('inDate').value = new Date().toISOString().slice(0, 10); }
-    function closeModal(force = false) {
-      if (!force && isFormDirty()) { toast('Data form belum disimpan! Klik X lagi untuk membuang.', 'warning'); modalClose.dataset.confirmClose = 'true'; return; }
-      modalOverlay.classList.remove('active'); fabAdd.classList.remove('active'); if(fabText) fabText.style.display = 'inline'; $('inPrice').value = ''; $('inTotal').value = ''; modalClose.dataset.confirmClose = 'false';
-    }
-    fabAdd.addEventListener('click', openModal);
-    modalClose.addEventListener('click', () => { if (modalClose.dataset.confirmClose === 'true') closeModal(true); else closeModal(false); });
-    modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(false); });
+    // ====== INLINE FORM LOGIC ======
+    const inputSection = $('inputSection');
+    const inputClose = $('inputClose');
+    const fabAdd = $('fabAdd');
 
+    function openForm() {
+      inputSection.classList.add('show');
+      $('inDate').value = new Date().toISOString().slice(0, 10);
+      // Scroll otomatis ke form
+      setTimeout(() => inputSection.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+    }
+    function closeForm(force = false) {
+      const isDirty = $('inPrice').value || $('inTotal').value;
+      if (!force && isDirty) { toast('Data form belum disimpan! Klik X lagi untuk membuang.', 'warning'); inputClose.dataset.confirmClose = 'true'; return; }
+      inputSection.classList.remove('show'); $('inPrice').value = ''; $('inTotal').value = ''; inputClose.dataset.confirmClose = 'false';
+    }
+
+    fabAdd.addEventListener('click', openForm);
+    inputClose.addEventListener('click', () => { if (inputClose.dataset.confirmClose === 'true') closeForm(true); else closeForm(false); });
+
+    // ====== FREEZE PANEL ======
     window.addEventListener('scroll', () => { if (window.scrollY > 10) $('mainHeader').classList.add('is-scrolled'); else $('mainHeader').classList.remove('is-scrolled'); });
 
+    // ====== FORMAT & TREND ======
     function fRp(n) { if (n == null || isNaN(n)) return 'Rp 0'; const abs = Math.abs(n); const s = abs.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 }); return (n < 0 ? '-' : '') + 'Rp ' + s; }
     function fKoin(n) { if (!n || isNaN(n)) return '0'; return n.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 6 }); }
     function getTrendIcon(buyPrice, curPrice) { if (!curPrice || curPrice <= 0 || !buyPrice || buyPrice <= 0) return '<span class="trend-icon trend-flat"><i class="fas fa-minus"></i></span>'; if (curPrice > buyPrice) return '<span class="trend-icon trend-up"><i class="fas fa-caret-up"></i></span>'; else if (curPrice < buyPrice) return '<span class="trend-icon trend-down"><i class="fas fa-caret-down"></i></span>'; return '<span class="trend-icon trend-flat"><i class="fas fa-minus"></i></span>'; }
     function toast(msg, type = 'info') { const box = $('toastBox'); const el = document.createElement('div'); el.className = 'toast ' + type; const ic = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'; el.innerHTML = '<i class="fas ' + ic + '"></i> ' + msg; box.appendChild(el); setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(40px)'; el.style.transition = '0.3s'; setTimeout(() => el.remove(), 300); }, 3500); }
 
+    // ====== KONEKSI GOOGLE SHEET ======
     async function checkConn() { const dot = $('statusDot'); const txt = $('statusText'); dot.className = 'status-dot'; txt.textContent = 'Memeriksa koneksi...'; try { const r = await fetch(API_URL + '?action=ping', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { dot.className = 'status-dot ok'; txt.textContent = 'Terhubung ke Sheet'; return true; } throw new Error(j.message); } catch (e) { dot.className = 'status-dot'; txt.textContent = 'Offline — data lokal'; return false; } }
     async function fetchData() { try { const r = await fetch(API_URL + '?action=read', { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { transactions = j.data || []; render(); calc(); return; } } catch (e) { console.warn('Fetch gagal:', e); } transactions = JSON.parse(localStorage.getItem('doge_tx') || '[]'); render(); calc(); }
     async function addTx(tx) { const p = new URLSearchParams({ action: 'add', coin: tx.coin, tanggal: tx.tanggal, harga: tx.harga, total: tx.total }); try { const r = await fetch(API_URL + '?' + p.toString(), { redirect: 'follow' }); const j = await r.json(); if (j.status === 'success') { toast('Transaksi berhasil disimpan', 'success'); await fetchData(); return true; } throw new Error(j.message); } catch (e) { console.warn('Simpan lokal:', e); tx.id = 'TX-' + Date.now().toString(36).toUpperCase(); tx.timestamp = new Date().toISOString(); tx.jumlah = tx.harga > 0 ? tx.total / tx.harga : 0; transactions.push(tx); saveLocal(); toast('Disimpan lokal (Sheet tidak terhubung)', 'error'); render(); calc(); return true; } }
@@ -326,6 +324,7 @@
       localStorage.setItem('doge_locks', JSON.stringify(lockedRows)); render();
     }
 
+    // ====== RENDER TABEL ======
     function render() {
       const tbody = $('tBody'); const cur = parseFloat($('curPrice').value) || 0;
       if (!transactions.length) { tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="fas fa-inbox"></i><p>Belum ada transaksi. Klik tombol merah di bawah untuk menambahkan.</p></div></td></tr>'; $('tCnt').textContent = '0 transaksi'; return; }
@@ -348,6 +347,7 @@
       $('tCnt').textContent = transactions.length + ' transaksi';
     }
 
+    // ====== KALKULASI ======
     function calc() {
       let tKoin = 0, tModal = 0;
       transactions.forEach(t => { tKoin += Number(t.jumlah) || 0; tModal += Number(t.total) || 0; });
@@ -367,6 +367,7 @@
       render();
     }
 
+    // ====== EVENT HANDLERS ======
     $('btnAdd').addEventListener('click', async () => {
       const coin = $('inCoin').value; const tanggal = $('inDate').value;
       const harga = parseFloat($('inPrice').value); const total = parseFloat($('inTotal').value);
@@ -375,14 +376,14 @@
       if (!total || total <= 0) { toast('Total belanja harus lebih dari 0', 'error'); $('inTotal').focus(); return; }
       const btn = $('btnAdd'); btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
       const ok = await addTx({ coin, tanggal, harga, total });
-      if (ok) { closeModal(true); }
+      if (ok) { closeForm(true); }
       btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Simpan Transaksi';
     });
 
     function handleDel(id) { if (!id) return; const btn = event.target.closest('.btn-del'); if (btn) { btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; btn.disabled = true; } delTx(id); }
     $('curPrice').addEventListener('input', calc);
     
-    // Pengaturan API dipindah ke klik 5x pada teks "Kalkulasi Pembelian DOGE" (Easter Egg) karena tombol gear dihapus
+    // Pengaturan API (Easter Egg klik 5x di judul)
     let apiClickCount = 0;
     $('mainHeader').querySelector('.header-text').addEventListener('click', () => {
       apiClickCount++;
