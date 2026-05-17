@@ -34,46 +34,25 @@
     @keyframes floatUp { 0% { opacity: 0; transform: translateY(0) scale(0.5); } 15% { opacity: 1; } 85% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-100vh) scale(1.2); } }
 
     /* ====== HALAMAN LOGIN ====== */
-    .login-wrapper {
-      position: fixed; inset: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--bg);
-      transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
+    .login-wrapper { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; background: var(--bg); transition: opacity 0.4s ease, visibility 0.4s ease; }
     .login-wrapper.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    
-    .login-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 20px; padding: 40px 32px; width: 90%; max-width: 400px;
-      box-shadow: 0 20px 50px var(--shadow); position: relative; z-index: 1;
-    }
+    .login-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 40px 32px; width: 90%; max-width: 400px; box-shadow: 0 20px 50px var(--shadow); position: relative; z-index: 1; }
     .login-logo { text-align: center; margin-bottom: 24px; }
     .login-logo .coin-icon { width: 64px; height: 64px; margin: 0 auto 16px; font-size: 28px; }
     .login-logo h2 { font-size: 20px; font-weight: 700; color: var(--fg); }
     .login-logo p { font-size: 13px; color: var(--muted); margin-top: 4px; }
-    
     .login-form { display: flex; flex-direction: column; gap: 16px; }
     .input-group { position: relative; }
     .input-group i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 14px; pointer-events: none; }
-    .input-group input {
-      width: 100%; padding: 14px 14px 14px 42px; background: var(--input-bg);
-      border: 1px solid var(--border); border-radius: 12px; color: var(--fg);
-      font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color 0.2s;
-    }
+    .input-group input { width: 100%; padding: 14px 14px 14px 42px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 12px; color: var(--fg); font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: border-color 0.2s; }
     .input-group input:focus { outline: none; border-color: var(--accent); }
     .input-group input::placeholder { color: var(--muted); font-family: 'Space Grotesk', sans-serif; }
-    
-    .btn-login {
-      width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent), #c23152);
-      color: #fff; border: none; border-radius: 12px; font-family: 'Space Grotesk', sans-serif;
-      font-size: 15px; font-weight: 600; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
-      margin-top: 8px;
-    }
+    .btn-login { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent), #c23152); color: #fff; border: none; border-radius: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; margin-top: 8px; }
     .btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(233,69,96,0.3); }
     .login-error { color: var(--accent); font-size: 12px; text-align: center; min-height: 18px; margin-top: 4px; }
 
     .container { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 20px 16px 60px; }
-    .app-wrapper.hidden { display: none; } /* Sembunyikan app jika belum login */
+    .app-wrapper.hidden { display: none; }
 
     .header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding: 20px; border-bottom: 1px solid var(--border); background-color: var(--header-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 0 0 16px 16px; position: sticky; top: 0; z-index: 50; transition: background-color 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
     .header.is-scrolled { box-shadow: 0 4px 20px var(--shadow); border-bottom-color: transparent; }
@@ -87,16 +66,24 @@
     .status-badge { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; color: var(--muted); white-space: nowrap; }
     .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transition: all 0.3s; flex-shrink: 0; }
     .status-dot.ok { background: var(--green); box-shadow: 0 0 8px rgba(0,214,143,0.5); }
-    
-    /* Tombol Logout & Tema */
     .header-btn { background: var(--card); border: 1px solid var(--border); border-radius: 20px; height: 36px; padding: 0 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--muted); font-size: 12px; font-weight: 600; gap: 6px; transition: all 0.3s; font-family: 'Space Grotesk', sans-serif; }
     .header-btn:hover { border-color: var(--accent); color: var(--accent); }
     .theme-toggle { width: 36px; padding: 0; border-radius: 50%; font-size: 14px; }
 
+    /* ====== MODAL SLIDE-DOWN DARI ATAS (MENGAMBANG) ====== */
     .modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
-    .modal-content { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--border); border-radius: 24px 24px 0 0; padding: 24px 24px 32px; max-width: 920px; margin: 0 auto; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 -10px 40px var(--shadow); }
+    
+    .modal-content {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: var(--card); border-bottom: 1px solid var(--border);
+      border-radius: 0 0 24px 24px; padding: 24px 24px 32px;
+      max-width: 920px; margin: 0 auto;
+      transform: translateY(-100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 40px var(--shadow);
+    }
     .modal-overlay.active .modal-content { transform: translateY(0); }
+    
     .modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
     .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
     .modal-header h2 { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
@@ -115,8 +102,15 @@
     .btn-cfg-save { background: var(--accent); color: #fff; }
     .btn-cfg-cancel { background: var(--card2); color: var(--muted); }
 
+    /* ====== TOMBOL STATIS TAMBAH TRANSAKSI ====== */
     .add-section { margin-bottom: 16px; }
-    .btn-open-modal { width: 100%; padding: 14px; background: var(--card); border: 2px dashed var(--border); border-radius: 14px; color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
+    .btn-open-modal {
+      width: 100%; padding: 14px; background: var(--card); border: 2px dashed var(--border);
+      border-radius: 14px; color: var(--accent); font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: all 0.2s;
+    }
     .btn-open-modal:hover { border-color: var(--accent); background: rgba(233, 69, 96, 0.05); }
 
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
@@ -248,6 +242,7 @@
   <!-- ====== HALAMAN APLIKASI ====== -->
   <div class="app-wrapper hidden" id="appWrapper">
     
+    <!-- Modal Slide-Down dari Atas (Mengambang) -->
     <div class="modal-overlay" id="modalOverlay">
       <div class="modal-content">
         <div class="modal-handle"></div>
@@ -295,6 +290,7 @@
         </div>
       </div>
 
+      <!-- Tombol Statis Tambah Transaksi (Menempel di atas Harga Saat Ini) -->
       <section class="add-section">
         <button class="btn-open-modal" id="btnOpenModal">
           <i class="fas fa-plus-circle"></i> Tambah Transaksi Baru
@@ -340,8 +336,7 @@
   </div>
 
   <script>
-    // ====== KONFIGURASI & STATE ======
-    const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbyUX0BOvOz8QxDFBvMApbb4AlshduqCASnU75GvgSeLStsa6pkDWylzb47P5mlKFaNj/exec';
+    const DEFAULT_API_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_DEPLOY_ANDA/exec';
     let API_URL = localStorage.getItem('gs_api_url') || DEFAULT_API_URL;
     let transactions = [];
     let lockedRows = JSON.parse(localStorage.getItem('doge_locks') || '[]');
@@ -358,7 +353,7 @@
       if (isLogged) {
         loginWrapper.classList.add('hidden');
         appWrapper.classList.remove('hidden');
-        initApp(); // Jalankan aplikasi jika sudah login
+        initApp();
       } else {
         loginWrapper.classList.remove('hidden');
         appWrapper.classList.add('hidden');
@@ -369,7 +364,6 @@
       e.preventDefault();
       const user = $('loginUser').value;
       const pass = $('loginPass').value;
-      
       if (user === 'admin' && pass === 'admin123') {
         localStorage.setItem('doge_auth', 'true');
         $('loginError').textContent = '';
@@ -408,7 +402,7 @@
     window.addEventListener('scroll', () => { if (window.scrollY > 10) $('mainHeader').classList.add('is-scrolled'); else $('mainHeader').classList.remove('is-scrolled'); });
 
     // ====== FORMAT & TREND ======
-    function fRp(n) { if (n == null || isNaN(n)) return 'Rp 0'; const abs = Math.abs(n); const s = abs.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 }); return (n < 0 ? '-' : '') + 'Rp ' + s; }
+    function fRp(n) { if (n == null || isNaN(n)) return 'Rp 0'; const abs = Math.abs(n); const s = abs.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 }); return (n < 0 ? '-') + 'Rp ' + s; }
     function fKoin(n) { if (!n || isNaN(n)) return '0'; return n.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 6 }); }
     function getTrendIcon(buyPrice, curPrice) { if (!curPrice || curPrice <= 0 || !buyPrice || buyPrice <= 0) return '<span class="trend-icon trend-flat"><i class="fas fa-minus"></i></span>'; if (curPrice > buyPrice) return '<span class="trend-icon trend-up"><i class="fas fa-caret-up"></i></span>'; else if (curPrice < buyPrice) return '<span class="trend-icon trend-down"><i class="fas fa-caret-down"></i></span>'; return '<span class="trend-icon trend-flat"><i class="fas fa-minus"></i></span>'; }
     function toast(msg, type = 'info') { const box = $('toastBox'); const el = document.createElement('div'); el.className = 'toast ' + type; const ic = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'; el.innerHTML = '<i class="fas ' + ic + '"></i> ' + msg; box.appendChild(el); setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(40px)'; el.style.transition = '0.3s'; setTimeout(() => el.remove(), 300); }, 3500); }
@@ -502,7 +496,6 @@
       await fetchData();
     }
 
-    // Cek sesi login saat pertama kali halaman dimuat
     checkAuth();
   </script>
 </body>
